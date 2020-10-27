@@ -1,0 +1,13 @@
+/**
+ *
+ * @author Pablo-VE
+ */
+.text-field {
+       -fx-font-size: 12pt;
+      -fx-text-fill: #ffffff;
+}
+
+.text-area {
+       -fx-font-size: 12pt;
+      -fx-text-fill: #ffffff;
+}

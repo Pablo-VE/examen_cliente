@@ -25,6 +25,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.una.examen.cliente.App;
+import org.una.examen.cliente.util.AppContext;
 import org.una.examen.cliente.util.Mensaje;
 
 /**
@@ -99,6 +100,14 @@ public class ProyectosPrincipalController implements Initializable {
 
     @FXML
     private void actCrearProyecto(ActionEvent event) {
+        try{
+            AppContext.getInstance().set("ModalidadProyecto", "Agregar");
+            Parent root = FXMLLoader.load(App.class.getResource("ProyectoDetalle" + ".fxml"));
+            ContenedorProyectos.getChildren().clear();
+            ContenedorProyectos.getChildren().add(root);
+        }catch(IOException ex){
+            Mensaje.showAndWait(Alert.AlertType.ERROR, "Opps :c", "Se ha producido un error inesperado en la aplicación");
+        };
     }
     
 }
