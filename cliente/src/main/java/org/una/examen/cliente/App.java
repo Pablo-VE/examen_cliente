@@ -18,7 +18,7 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         Parent root = FXMLLoader.load(App.class.getResource("MenuInicio" + ".fxml"));
-        
+        stage.setTitle("Examen de Programación III - Grupo 7");
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();

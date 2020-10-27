@@ -6,11 +6,19 @@
 package org.una.examen.cliente.controller;
 
 import com.jfoenix.controls.JFXButton;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.stage.Stage;
+import org.una.examen.cliente.App;
+import org.una.examen.cliente.util.Mensaje;
 
 /**
  * FXML Controller class
@@ -36,6 +44,18 @@ public class MenuInicioController implements Initializable {
 
     @FXML
     private void actProyectos(ActionEvent event) {
+        try{
+            Stage stageCerrar = (Stage) btnProyectos.getScene().getWindow();
+            stageCerrar.close();
+            Stage stage = new Stage();
+            Parent root = FXMLLoader.load(App.class.getResource("ProyectosPrincipal" + ".fxml"));
+            Scene scene = new Scene(root);
+            stage.setTitle("Gestión de proyectos");
+            stage.setScene(scene);
+            stage.show();
+        }catch(IOException ex){
+            Mensaje.showAndWait(Alert.AlertType.ERROR, "Opps :c", "Ocurrió un error, por favor intenta más tarde");
+        }
     }
 
     @FXML

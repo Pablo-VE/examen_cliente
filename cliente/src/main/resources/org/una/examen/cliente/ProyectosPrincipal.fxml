@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="645.0" prefWidth="977.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.una.examen.cliente.controller.ProyectosPrincipalController">
+   <children>
+      <ImageView fitHeight="650.0" fitWidth="977.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@recursos/wallpaper.jpg" />
+         </image>
+      </ImageView>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="648.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="242.0" />
+      <JFXTextField fx:id="txtBusqueda" focusColor="RED" labelFloat="true" layoutX="16.0" layoutY="60.0" prefHeight="25.0" prefWidth="211.0" promptText="¿Qué quieres buscar?" unFocusColor="BLACK" />
+      <Button fx:id="actBuscarNombre" layoutX="16.0" layoutY="101.0" mnemonicParsing="false" onAction="#actBuscarNombre" prefHeight="35.0" prefWidth="211.0" style="-fx-background-color: black;" text="Buscar por nombre del proyecto" textFill="WHITE" />
+      <Button fx:id="btnBuscarProyecto" layoutX="16.0" layoutY="145.0" mnemonicParsing="false" onAction="#actBuscarProyecto" prefHeight="35.0" prefWidth="211.0" style="-fx-background-color: black;" text="Buscar por responsable del proyecto" textFill="WHITE" />
+      <Label fx:id="lbTitulo" layoutX="16.0" layoutY="14.0" text="GESTIÓN DE PROYECTOS" textFill="YELLOW">
+         <font>
+            <Font name="System Bold" size="17.9" />
+         </font>
+      </Label>
+      <StackPane fx:id="ContenedorProyectos" layoutX="242.0" prefHeight="648.0" prefWidth="735.0" />
+      <ScrollPane layoutX="15.0" layoutY="280.0" prefHeight="292.0" prefWidth="213.0">
+         <content>
+            <VBox fx:id="vbProyectos" prefHeight="282.0" prefWidth="211.0" />
+         </content>
+      </ScrollPane>
+      <Button fx:id="btnVolver" layoutX="17.0" layoutY="591.0" mnemonicParsing="false" onAction="#actVolver" prefHeight="35.0" prefWidth="211.0" style="-fx-background-color: black;" text="Volver al menú principal" textFill="WHITE" />
+      <Button fx:id="btnCrearProyecto" layoutX="17.0" layoutY="205.0" mnemonicParsing="false" onAction="#actCrearProyecto" prefHeight="56.0" prefWidth="211.0" style="-fx-background-color: black;" text="CREAR PROYECTO" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
