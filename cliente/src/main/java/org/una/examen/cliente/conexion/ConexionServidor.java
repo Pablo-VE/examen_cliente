@@ -58,9 +58,9 @@ public class ConexionServidor {
     }
     
     private void setDireccion(int api, String direccion){
-        String apiUrl="http://localhost:";
+        String url="";
         if(api==1){
-            apiUrl+=apiUrl+"8181/";
+            url="8181/";
         }else{
             if(api==2){
                 url="8097/";
