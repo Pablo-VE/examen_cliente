@@ -15,8 +15,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
 import static javafx.scene.paint.Color.RED;
 import org.una.examen.cliente.dto.ProyectoDTO;
+import org.una.examen.cliente.dto.TareaDTO;
 import org.una.examen.cliente.service.ProyectoService;
 import org.una.examen.cliente.util.AppContext;
 import org.una.examen.cliente.util.Mensaje;
@@ -43,6 +45,16 @@ public class ProyectoDetalleController implements Initializable {
     private String modalidad="";
     @FXML
     private Label lbFechaRegistro;
+    
+    ProyectoService proyectoService = new ProyectoService();
+    @FXML
+    private Button btnAgregarTarea;
+    @FXML
+    private TableView<TareaDTO> tvTareas;
+    @FXML
+    private Label lbTituloTareas;
+    
+    private ProyectoDTO proyecto = new ProyectoDTO();
     /**
      * Initializes the controller class.
      */
@@ -51,6 +63,10 @@ public class ProyectoDetalleController implements Initializable {
         modalidad=(String) AppContext.getInstance().get("ModalidadProyecto");
         if(modalidad.equals("Agregar")){
             lbFechaRegistro.setVisible(false);
+            btnAgregarTarea.setDisable(true);
+            btnAgregarTarea.setVisible(false);
+            proyecto = new ProyectoDTO();
+            lbTitulo.setText("CREACIÓN DE PROYECTO");
         }
         // TODO
     }    
@@ -60,19 +76,28 @@ public class ProyectoDetalleController implements Initializable {
     @FXML
     private void actGuardar(ActionEvent event) {
         if(validar()){
-            ProyectoDTO proyecto = new ProyectoDTO();
+            
             proyecto.setNombre(txtNombre.getText());
             proyecto.setResponsable(txtResponsable.getText());
             if(!txtDescripcion.getText().isBlank()){
                 proyecto.setDescipcion(txtDescripcion.getText());
-            }
-            ProyectoService proyectoService = new ProyectoService();
-            Respuesta res = proyectoService.crear(proyecto);
-            if(res.getEstado()){
-                proyecto = (ProyectoDTO) res.getResultado("Proyecto");
-                Mensaje.showAndWait(Alert.AlertType.INFORMATION, "Registro de proyecto", "Proyecto "+proyecto.getNombre()+" creado con éxito");
             }else{
-                Mensaje.showAndWait(Alert.AlertType.INFORMATION, "Registro de proyecto", "Ocurrió un error al registrar su proyecto");
+                if(modalidad.equals("Modificar")){
+                    proyecto.setDescipcion("");
+                }
+            }
+            if(modalidad.equals("Agregar")){
+                Respuesta res = proyectoService.crear(proyecto);
+                if(res.getEstado()){
+                    proyecto = (ProyectoDTO) res.getResultado("Proyecto");
+                    Mensaje.showAndWait(Alert.AlertType.INFORMATION, "Registro de proyecto", "Proyecto "+proyecto.getNombre()+" creado con éxito. Si desea puede agregar tareas");
+                    btnGuardar.setDisable(true);
+                    btnGuardar.setVisible(false);
+                    btnAgregarTarea.setVisible(true);
+                    btnAgregarTarea.setDisable(false);
+                }else{
+                    Mensaje.showAndWait(Alert.AlertType.INFORMATION, "Registro de proyecto", "Ocurrió un error al registrar su proyecto");
+                }
             }
         }
     }
@@ -88,6 +113,10 @@ public class ProyectoDetalleController implements Initializable {
         }
         
         return true;
+    }
+
+    @FXML
+    private void actAgregarTarea(ActionEvent event) {
     }
     
 }

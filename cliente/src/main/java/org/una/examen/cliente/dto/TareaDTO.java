@@ -14,6 +14,7 @@ import javax.json.bind.annotation.JsonbDateFormat;
  */
 public class TareaDTO {
     private Long id;
+    private String nombre;
     private String descipcion;
     @JsonbDateFormat(value = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
     private Date fechaInicio;  
@@ -31,8 +32,9 @@ public class TareaDTO {
     public TareaDTO() {
     }
 
-    public TareaDTO(Long id, String descipcion, Date fechaInicio, Date fechaFinalizacion, int importancia, int urgencia, float porcentajeAvance, Date fechaRegistro, Date fechaModificacion, ProyectoDTO proyecto) {
+    public TareaDTO(Long id, String nombre, String descipcion, Date fechaInicio, Date fechaFinalizacion, int importancia, int urgencia, float porcentajeAvance, Date fechaRegistro, Date fechaModificacion, ProyectoDTO proyecto) {
         this.id = id;
+        this.nombre = nombre;
         this.descipcion = descipcion;
         this.fechaInicio = fechaInicio;
         this.fechaFinalizacion = fechaFinalizacion;
@@ -42,6 +44,16 @@ public class TareaDTO {
         this.fechaRegistro = fechaRegistro;
         this.fechaModificacion = fechaModificacion;
         this.proyecto = proyecto;
+    }
+    
+    
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public Long getId() {
