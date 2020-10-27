@@ -27,6 +27,7 @@ public class ConexionServidor {
     private Invocation.Builder builder;
     private WebTarget webTarget;
     private Response response;
+    private final String apiUrl = "http://localhost:";
     
     public ConexionServidor(int api, String direccion){
         this.client = ClientBuilder.newClient();
@@ -34,21 +35,21 @@ public class ConexionServidor {
     }
     
     public ConexionServidor(int api, String direccion, String parametros, Map<String, Object> valores){
-        String apiUrl="http://localhost:";
+        String url="";
         if(api==1){
-            apiUrl+=apiUrl+"8181/";
+            url="8181/";
         }else{
             if(api==2){
-                apiUrl+=apiUrl+"8097/";
+                url="8097/";
             }else{
                 if(api==3){
-                    apiUrl+=apiUrl+"8089/";
+                    url="8089/";
                 }
             }
         }
 
         this.client = ClientBuilder.newClient();
-        this.webTarget = client.target(apiUrl + direccion).path(parametros).resolveTemplates(valores);
+        this.webTarget = client.target(apiUrl + url + direccion).path(parametros).resolveTemplates(valores);
         this.builder = webTarget.request(MediaType.APPLICATION_JSON);
         MultivaluedMap<String, Object> headers = new MultivaluedHashMap<>();
         headers.add("Content-Type", "application/json; charset=UTF-8");
@@ -62,16 +63,16 @@ public class ConexionServidor {
             apiUrl+=apiUrl+"8181/";
         }else{
             if(api==2){
-                apiUrl+=apiUrl+"8097/";
+                url="8097/";
             }else{
                 if(api==3){
-                    apiUrl+=apiUrl+"8089/";
+                    url="8089/";
                 }
             }
         }
         
         
-        this.webTarget = client.target(apiUrl + direccion);
+        this.webTarget = client.target(apiUrl + url + direccion);
         this.builder = webTarget.request(MediaType.APPLICATION_JSON);
         MultivaluedMap<String, Object> headers = new MultivaluedHashMap<>();
         headers.add("Content-Type", "application/json; charset=UTF-8");

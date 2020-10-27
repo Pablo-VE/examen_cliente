@@ -29,6 +29,7 @@ public class ProyectoService {
             ProyectoDTO result = (ProyectoDTO) conexion.readEntity(ProyectoDTO.class);
             return new Respuesta(true, "Proyecto", result);
         }catch(Exception ex){
+            System.out.println(ex.toString());
             System.out.println("Excepcion creacion de proyecto: "+ex.getMessage());
             return new Respuesta(false, ex.toString(), "No pudo establecerse conexion con el servidor");
         }
