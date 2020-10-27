@@ -6,6 +6,8 @@
 package org.una.examen.cliente.controller;
 
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
@@ -33,9 +35,11 @@ public class TareasDetalleController implements Initializable {
     @FXML
     private DatePicker dpFechaFinalizacion;
     @FXML
-    private JFXComboBox<?> cnNivelImportancia;
-    @FXML
     private JFXComboBox<?> cbNivelPrioridad;
+    @FXML
+    private JFXSlider nivelImportancia;
+    @FXML
+    private JFXComboBox<?> cbNivelImportancia;
 
     /**
      * Initializes the controller class.
