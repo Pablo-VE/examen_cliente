@@ -64,6 +64,18 @@ public class MenuInicioController implements Initializable {
 
     @FXML
     private void actCobros(ActionEvent event) {
+         try{
+            Stage stageCerrar = (Stage) btnProyectos.getScene().getWindow();
+            stageCerrar.close();
+            Stage stage = new Stage();
+            Parent root = FXMLLoader.load(App.class.getResource("MenuCobro" + ".fxml"));
+            Scene scene = new Scene(root);
+            stage.setTitle("Gestión de cobros");
+            stage.setScene(scene);
+            stage.show();
+        }catch(IOException ex){
+            Mensaje.showAndWait(Alert.AlertType.ERROR, "Opps :c", "Ocurrió un error, por favor intenta más tarde");
+        }
     }
     
 }
