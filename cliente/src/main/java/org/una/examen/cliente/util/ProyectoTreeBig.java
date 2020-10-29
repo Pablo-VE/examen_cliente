@@ -5,13 +5,22 @@
  */
 package org.una.examen.cliente.util;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import org.una.examen.cliente.App;
 import org.una.examen.cliente.dto.ProyectoDTO;
 import org.una.examen.cliente.dto.TareaDTO;
 import org.una.examen.cliente.service.TareaService;
@@ -27,15 +36,23 @@ public class ProyectoTreeBig extends VBox {
     private TareaService tareaService = new TareaService();
     
     public ProyectoTreeBig(ProyectoDTO proyecto) {
+        this.setStyle(estilosPrincipal());
         this.proyecto = proyecto;
         
+        
+        crearTitulo();
+        this.getChildren().add(titulo);
         tareas = new ArrayList<TareaDTO>();
         Respuesta res = tareaService.getByProyecto(proyecto.getId());
         if(res.getEstado()){
             tareas = (List<TareaDTO>) res.getResultado("Tareas");
+            if(!tareas.isEmpty()){
+                for(int i=0; i<tareas.size(); i++){
+                    TareaTree tarea = new TareaTree(tareas.get(i));
+                    this.getChildren().add(tarea);
+                }
+            }
         }
-        crearTitulo();
-        this.getChildren().add(titulo);
         
         
     }
@@ -62,10 +79,21 @@ public class ProyectoTreeBig extends VBox {
         btnAgregarTarea.setText("Agregar tarea");
         btnAgregarTarea.setOnMouseClicked(event ->{
             try{
-                actAgregarTarea();
-            }catch(Exception ex){
+                Stage stage = new Stage();
+                AppContext.getInstance().set("ModalidadTarea", "Agregar");
+                AppContext.getInstance().set("Proyecto", proyecto);
+                AppContext.getInstance().set("VistaProyecto", "TreeView");
+                Parent root = FXMLLoader.load(App.class.getResource("TareasDetalle" + ".fxml"));
+                stage.setScene(new Scene(root));
+                stage.setTitle("Registro de tarea");
+                stage.initModality(Modality.WINDOW_MODAL);
+                stage.initOwner(
+                    ((Node)event.getSource()).getScene().getWindow() );
+                stage.show();
+            }catch(IOException ex){
                 System.out.println(ex.getMessage());
-            }
+                Mensaje.showAndWait(Alert.AlertType.ERROR, "Opps :c", "Se ha producido un error inesperado en la aplicación");
+            };
         });
         Button btnModificarProyecto = new Button();
         btnModificarProyecto.setText("Modificar proyecto");
@@ -80,22 +108,20 @@ public class ProyectoTreeBig extends VBox {
         //set estilo a los botones
         
         titulo.getChildren().add(btnModificarProyecto);
-        /*Label espacio = new Label();
-        espacio.setText("");
-        espacio.setPrefWidth(24);*/
         titulo.getChildren().add(btnAgregarTarea);
     }
     
-    public void actAgregarTarea(){
-        
-    }
+   
     
     public void actModificarProyecto(){
         
     }
     
     
-    
+    public String estilosPrincipal(){
+        return  "   -fx-background-color: transparent;" +
+                "   -fx-spacing: 1;" ;
+    }
     
     public String estilosTitulo(){
         return  "   -fx-background-color: #ffffff;" +

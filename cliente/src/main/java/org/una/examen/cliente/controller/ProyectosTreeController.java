@@ -16,6 +16,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import org.una.examen.cliente.dto.ProyectoDTO;
 import org.una.examen.cliente.service.ProyectoService;
+import org.una.examen.cliente.util.AppContext;
 import org.una.examen.cliente.util.ProyectoTreeBig;
 import org.una.examen.cliente.util.Respuesta;
 
@@ -38,19 +39,36 @@ public class ProyectosTreeController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        vbPadre.setStyle(estilosPrincipal());
+        AppContext.getInstance().set("ControllerProyecto", this);
+        cargarTodos();
+        // TODO
+    } 
+    
+    public void cargarVista(List<ProyectoDTO> proyectos){
+        vbPadre.getChildren().clear();
+        if(!proyectos.isEmpty()){
+                for(int i=0; i<proyectos.size(); i++){
+                    ProyectoTreeBig pro = new ProyectoTreeBig(proyectos.get(i));
+                    vbPadre.getChildren().add(pro);
+            }
+        }
+    }
+    
+    public void cargarTodos(){
         List<ProyectoDTO> proyectos = new ArrayList<ProyectoDTO>();
         ProyectoService proyectoService = new ProyectoService();
         Respuesta res = proyectoService.getAll();
         if(res.getEstado()){
             proyectos = (List<ProyectoDTO>) res.getResultado("Proyectos");
-            if(!proyectos.isEmpty()){
-                for(int i=0; i<proyectos.size(); i++){
-                    ProyectoTreeBig pro = new ProyectoTreeBig(proyectos.get(i));
-                    vbPadre.getChildren().add(pro);
-                }
-            }
+            cargarVista(proyectos);
         }
-        // TODO
-    }    
+    }
+    
+    public String estilosPrincipal(){
+        return  "   -fx-background-color: transparent;" +
+                "   -fx-spacing: 25;" ;
+    }
+    
     
 }
