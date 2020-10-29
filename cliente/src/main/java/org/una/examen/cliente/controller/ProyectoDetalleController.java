@@ -77,6 +77,8 @@ public class ProyectoDetalleController implements Initializable {
     
     
     boolean creado=false;
+    @FXML
+    private Button btnListo;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -237,6 +239,10 @@ public class ProyectoDetalleController implements Initializable {
             tvTareas.getColumns().add(colFechaInicio);
             tvTareas.getColumns().add(colFechaFinalizacion);
         }
+    }
+
+    @FXML
+    private void actListo(ActionEvent event) {
     }
     
 }

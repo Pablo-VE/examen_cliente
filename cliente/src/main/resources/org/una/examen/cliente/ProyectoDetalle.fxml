@@ -61,5 +61,10 @@
             <Font name="System Bold" size="21.0" />
          </font>
       </Label>
+      <Button fx:id="btnListo" layoutX="826.0" layoutY="575.0" mnemonicParsing="false" onAction="#actListo" style="-fx-background-color: YELLOW;" text="¡LISTO!">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

@@ -46,11 +46,11 @@ public class ProyectosPrincipalController implements Initializable {
     @FXML
     private StackPane ContenedorProyectos;
     @FXML
-    private VBox vbProyectos;
-    @FXML
     private Button btnVolver;
     @FXML
     private Button btnCrearProyecto;
+    @FXML
+    private Button btnVerProyectos;
 
     /**
      * Initializes the controller class.
@@ -103,6 +103,17 @@ public class ProyectosPrincipalController implements Initializable {
         try{
             AppContext.getInstance().set("ModalidadProyecto", "Agregar");
             Parent root = FXMLLoader.load(App.class.getResource("ProyectoDetalle" + ".fxml"));
+            ContenedorProyectos.getChildren().clear();
+            ContenedorProyectos.getChildren().add(root);
+        }catch(IOException ex){
+            Mensaje.showAndWait(Alert.AlertType.ERROR, "Opps :c", "Se ha producido un error inesperado en la aplicación");
+        };
+    }
+
+    @FXML
+    private void actVerProyectos(ActionEvent event) {
+        try{
+            Parent root = FXMLLoader.load(App.class.getResource("ProyectosTree" + ".fxml"));
             ContenedorProyectos.getChildren().clear();
             ContenedorProyectos.getChildren().add(root);
         }catch(IOException ex){
