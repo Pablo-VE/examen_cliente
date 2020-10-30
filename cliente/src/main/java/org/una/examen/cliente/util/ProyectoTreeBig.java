@@ -101,10 +101,19 @@ public class ProyectoTreeBig extends VBox {
         btnModificarProyecto.setText("Modificar proyecto");
         btnModificarProyecto.setOnMouseClicked(event ->{
             try{
-                actModificarProyecto();
-            }catch(Exception ex){
+                Stage stage = new Stage();
+                AppContext.getInstance().set("Proyecto", proyecto);
+                Parent root = FXMLLoader.load(App.class.getResource("ProyectoEditar" + ".fxml"));
+                stage.setScene(new Scene(root));
+                stage.setTitle("Modificación de proyecto");
+                stage.initModality(Modality.WINDOW_MODAL);
+                stage.initOwner(
+                    ((Node)event.getSource()).getScene().getWindow() );
+                stage.show();
+            }catch(IOException ex){
                 System.out.println(ex.getMessage());
-            }
+                Mensaje.showAndWait(Alert.AlertType.ERROR, "Opps :c", "Se ha producido un error inesperado en la aplicación");
+            };
         });
         
         //set estilo a los botones
