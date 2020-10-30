@@ -88,6 +88,8 @@ public class TareasDetalleController implements Initializable {
     
     
     private String modalidadVista = "";
+    @FXML
+    private Button btnCancelar;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -283,6 +285,12 @@ public class TareasDetalleController implements Initializable {
     @FXML
     private void actSelFechaFinalizacion(ActionEvent event) {
         setFechaFinalizacion();
+    }
+
+    @FXML
+    private void actCancelar(ActionEvent event) {
+        Stage stage = (Stage) btnCancelar.getScene().getWindow();
+        stage.close();
     }
     
 }

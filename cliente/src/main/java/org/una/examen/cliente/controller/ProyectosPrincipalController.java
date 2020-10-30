@@ -32,6 +32,7 @@ import org.una.examen.cliente.service.ProyectoService;
 import org.una.examen.cliente.util.AppContext;
 import org.una.examen.cliente.util.Formato;
 import org.una.examen.cliente.util.Mensaje;
+import org.una.examen.cliente.util.Rangos;
 import org.una.examen.cliente.util.Respuesta;
 
 /**
@@ -65,6 +66,10 @@ public class ProyectosPrincipalController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        Rangos.getInstance().cargar();
+        
+        
         AppContext.getInstance().set("ControllerPrincipal", this);
         Formato();
     }    
@@ -173,6 +178,7 @@ public class ProyectosPrincipalController implements Initializable {
 
     @FXML
     private void actConfigurarRangos(ActionEvent event) {
+        Rangos.getInstance().cargar();
         try{
             Parent root = FXMLLoader.load(App.class.getResource("Rangos" + ".fxml"));
             ContenedorProyectos.getChildren().clear();

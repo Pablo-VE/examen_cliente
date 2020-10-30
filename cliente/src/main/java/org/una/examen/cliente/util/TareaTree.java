@@ -62,11 +62,10 @@ public class TareaTree extends HBox{
     
     public void crearEstado(){
         VBox estado = new VBox();
-        estado.setStyle(vbEstilo2());
+        estado.setStyle(Rangos.getInstance().colorTarea(tarea));
         estado.setPrefHeight(70);
         estado.setPrefWidth(200);
         estado.setAlignment(Pos.CENTER);
-        //setear color
         Label titulo = new Label();
         titulo.setText("Avance");
         Label avance = new Label();

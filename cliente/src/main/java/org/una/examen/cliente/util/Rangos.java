@@ -5,7 +5,15 @@
  */
 package org.una.examen.cliente.util;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import javafx.scene.control.Alert;
+import org.una.examen.cliente.dto.TareaDTO;
 
 /**
  *
@@ -107,5 +115,81 @@ public class Rangos {
         Rangos.getInstance().rangos.remove(rango);
     }
     
+    public void guardar(){
+        String textoGuardar="";
+        if(rangos.size()>0){
+            for(int i=0; i<rangos.size(); i++){
+                textoGuardar+=rangos.get(i);
+                if(i<(rangos.size()-1)){
+                    textoGuardar+=",";
+                }
+            }
+        }
+        try {
+            String ruta = "proyectosRangos\\Rangos.txt";
+
+
+            File file = new File(ruta);
+
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            FileWriter fw = new FileWriter(file);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(textoGuardar);
+            bw.close();
+
+            
+            Mensaje.showAndWait(Alert.AlertType.INFORMATION, "CONFIGURACIÓN DE RANGOS Y COLORES", "Rangos y colores registrados correctamente");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+            
+    }
     
+    public void cargar(){
+        rangos.clear();
+        File file = new File("proyectosRangos\\Rangos.txt"); 
+  
+        try{
+            BufferedReader br = new BufferedReader(new FileReader(file)); 
+
+            String archivoLeido=null; 
+            while ((archivoLeido = br.readLine()) != null) 
+
+            if(archivoLeido!=null){
+
+                String todosRangos[] = archivoLeido.split(",");
+                if(todosRangos!=null){
+                    if(todosRangos.length>0){
+                        for(int i=0; i<todosRangos.length; i++){
+                            String rangoLeido[]=todosRangos[i].split("-");
+                            RangoColor rango = new RangoColor(Integer.valueOf(rangoLeido[0]), Integer.valueOf(rangoLeido[1]), rangoLeido[2]);
+                            Rangos.getInstance().addRango(rango);
+                        }
+                    }
+                }
+
+            }
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }
+         
+    }
+    
+    public String colorTarea(TareaDTO tarea){
+        if(rangos.size()>0){
+            for(int i=0; i<rangos.size();i++){
+                if(tarea.getPorcentajeAvance()>=rangos.get(i).getMin()&&tarea.getPorcentajeAvance()<=rangos.get(i).getMax()){
+                    return "   -fx-background-color: "+rangos.get(i).getColor()+";" +
+                           "   -fx-spacing: 5;" ;
+                }
+            }
+        }
+        
+        
+        
+        return "   -fx-background-color: #f0d0ce;" +
+                "   -fx-spacing: 5;" ;
+    }
 }

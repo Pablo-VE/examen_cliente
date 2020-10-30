@@ -71,6 +71,8 @@ public class RangoDetalleController implements Initializable {
 
     @FXML
     private void actSalir(ActionEvent event) {
+        Stage stage = (Stage) btnSalir.getScene().getWindow();
+        stage.close();
     }
 
     @FXML

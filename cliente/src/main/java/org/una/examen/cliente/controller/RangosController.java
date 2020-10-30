@@ -85,6 +85,9 @@ public class RangosController implements Initializable {
 
     @FXML
     private void actGuardar(ActionEvent event) {
+        Rangos.getInstance().guardar();
+        Rangos.getInstance().cargar();
+        cargarTabla();
     }
     
     public void cargarTabla(){
