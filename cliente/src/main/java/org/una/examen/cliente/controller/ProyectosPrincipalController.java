@@ -8,6 +8,8 @@ package org.una.examen.cliente.controller;
 import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -25,8 +27,11 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.una.examen.cliente.App;
+import org.una.examen.cliente.dto.ProyectoDTO;
+import org.una.examen.cliente.service.ProyectoService;
 import org.una.examen.cliente.util.AppContext;
 import org.una.examen.cliente.util.Mensaje;
+import org.una.examen.cliente.util.Respuesta;
 
 /**
  * FXML Controller class
@@ -57,29 +62,63 @@ public class ProyectosPrincipalController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        /*TreeItem<File> archivos = new TreeItem<>();
-        TreeView<File> treeView = new TreeView<>();
-        treeView.setShowRoot(false);
-        treeView.setRoot(archivos);
+        AppContext.getInstance().set("ControllerPrincipal", this);
+    }    
 
-        File[] roots = File.listRoots();
-        for (File disk : roots)
-        archivos.getChildren().add(createNode(disk));
-        
-     
-        vbProyectos.setPadding(new Insets(10.0));
-        vbProyectos.setSpacing(10.0);
-        vbProyectos.getChildren().add(new Label("Proyectos"));
-        vbProyectos.getChildren().add(treeView);*/
-
-        }    
-
+    
+    
+    private ProyectoService proyectoService = new ProyectoService();
     @FXML
     private void actBuscarNombre(ActionEvent event) {
+        if(txtBusqueda.getText().isBlank()){
+            Mensaje.show(Alert.AlertType.WARNING, "Buscar proyectos", "Por favor escriba el nombre del responsable del proyecto en el campo de búsqueda");
+        }else{
+            List<ProyectoDTO> proyectos = new ArrayList<ProyectoDTO>();
+            ProyectoService proyectoService = new ProyectoService();
+            Respuesta res = proyectoService.getByNombre(txtBusqueda.getText());
+            if(res.getEstado()){
+                proyectos = (List<ProyectoDTO>) res.getResultado("Proyectos");
+                System.out.println(proyectos.size());
+                try{
+                    AppContext.getInstance().set("ModalidadProyectosTree", "Busqueda");
+                    AppContext.getInstance().set("ProyectosFiltrados", proyectos);
+                    Parent root = FXMLLoader.load(App.class.getResource("ProyectosTree" + ".fxml"));
+                    ContenedorProyectos.getChildren().clear();
+                    ContenedorProyectos.getChildren().add(root);
+                }catch(IOException ex){
+                    Mensaje.showAndWait(Alert.AlertType.ERROR, "Opps :c", "Se ha producido un error inesperado en la aplicación");
+                };
+            }else{
+                Mensaje.showAndWait(Alert.AlertType.ERROR, "Búsqueda de proyectos", "No se encontro ningun proyecto con el responsable "+txtBusqueda.getText());
+            }
+                
+        }
     }
 
     @FXML
     private void actBuscarProyecto(ActionEvent event) {
+        if(txtBusqueda.getText().isBlank()){
+            Mensaje.show(Alert.AlertType.WARNING, "Buscar proyectos", "Por favor escriba el nombre del proyecto en el campo de búsqueda");
+        }else{
+            List<ProyectoDTO> proyectos = new ArrayList<ProyectoDTO>();
+            ProyectoService proyectoService = new ProyectoService();
+            Respuesta res = proyectoService.getByResponsable(txtBusqueda.getText());
+            if(res.getEstado()){
+                proyectos = (List<ProyectoDTO>) res.getResultado("Proyectos");
+                try{
+                    AppContext.getInstance().set("ModalidadProyectosTree", "Busqueda");
+                    AppContext.getInstance().set("ProyectosFiltrados", proyectos);
+                    Parent root = FXMLLoader.load(App.class.getResource("ProyectosTree" + ".fxml"));
+                    ContenedorProyectos.getChildren().clear();
+                    ContenedorProyectos.getChildren().add(root);
+                }catch(IOException ex){
+                    Mensaje.showAndWait(Alert.AlertType.ERROR, "Opps :c", "Se ha producido un error inesperado en la aplicación");
+                };
+            }else{
+                Mensaje.showAndWait(Alert.AlertType.ERROR, "Búsqueda de proyectos", "No se encontro ningun proyecto con el nombre "+txtBusqueda.getText());
+            }
+                
+        }
     }
 
     @FXML
@@ -112,7 +151,12 @@ public class ProyectosPrincipalController implements Initializable {
 
     @FXML
     private void actVerProyectos(ActionEvent event) {
+        verProyectos();
+    }
+    
+    public void verProyectos(){
         try{
+            AppContext.getInstance().set("ModalidadProyectosTree", "Ver");
             Parent root = FXMLLoader.load(App.class.getResource("ProyectosTree" + ".fxml"));
             ContenedorProyectos.getChildren().clear();
             ContenedorProyectos.getChildren().add(root);
@@ -120,5 +164,4 @@ public class ProyectosPrincipalController implements Initializable {
             Mensaje.showAndWait(Alert.AlertType.ERROR, "Opps :c", "Se ha producido un error inesperado en la aplicación");
         };
     }
-    
 }

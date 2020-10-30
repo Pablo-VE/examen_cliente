@@ -36,9 +36,9 @@
             <Font name="System Bold" size="20.0" />
          </font>
       </Button>
-      <Button fx:id="btnVerProyectos" layoutX="16.0" layoutY="279.0" mnemonicParsing="false" onAction="#actVerProyectos" prefHeight="35.0" prefWidth="211.0" style="-fx-background-color: yellow;" text="Ver proyectos">
+      <Button fx:id="btnVerProyectos" layoutX="16.0" layoutY="279.0" mnemonicParsing="false" onAction="#actVerProyectos" prefHeight="35.0" prefWidth="211.0" style="-fx-background-color: yellow;" text="Ver todos los proyectos">
          <font>
-            <Font name="System Bold" size="17.0" />
+            <Font name="System Bold" size="14.0" />
          </font>
       </Button>
    </children>

@@ -82,6 +82,7 @@ public class ProyectoDetalleController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        btnListo.setText("Salir");
         modalidad=(String) AppContext.getInstance().get("ModalidadProyecto");
         cargarTabla();
         if(modalidad.equals("Agregar")){
@@ -89,6 +90,8 @@ public class ProyectoDetalleController implements Initializable {
             btnAgregarTarea.setDisable(true);
             btnAgregarTarea.setVisible(false);
             proyecto = new ProyectoDTO();
+            btnListo.setDisable(true);
+            btnListo.setVisible(false);
             lbTitulo.setText("CREACIÓN DE PROYECTO");
         }else{
             creado=true;
@@ -124,6 +127,8 @@ public class ProyectoDetalleController implements Initializable {
                     txtNombre.setDisable(true);
                     txtDescripcion.setDisable(true);
                     txtResponsable.setDisable(true);
+                    btnListo.setDisable(false);
+                    btnListo.setVisible(true);
                    
                 }else{
                     Mensaje.showAndWait(Alert.AlertType.INFORMATION, "Registro de proyecto", "Ocurrió un error al registrar su proyecto");
@@ -243,6 +248,9 @@ public class ProyectoDetalleController implements Initializable {
 
     @FXML
     private void actListo(ActionEvent event) {
+        Mensaje.showAndWait(Alert.AlertType.INFORMATION, "Registro de Proyecto", "Su proyecto ha sido creado con éxito");
+        ProyectosPrincipalController principalController = (ProyectosPrincipalController) AppContext.getInstance().get("ControllerPrincipal");
+        principalController.verProyectos();
     }
     
 }

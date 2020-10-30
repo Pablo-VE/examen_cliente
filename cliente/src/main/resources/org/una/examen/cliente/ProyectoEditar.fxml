@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="376.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="org.una.examen.cliente.controller.ProyectoEditarController">
+<AnchorPane id="AnchorPane" prefHeight="376.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.una.examen.cliente.controller.ProyectoEditarController">
     <children>
       <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -39,7 +39,7 @@
             <Font name="System Bold" size="16.0" />
          </font>
       </Button>
-      <Button fx:id="btnCancelar" layoutX="29.0" layoutY="340.0" mnemonicParsing="false" onAction="#actCancelar" style="-fx-background-color: YELLOW;" text="CANCELAR">
+      <Button fx:id="btnCancelar" layoutX="29.0" layoutY="340.0" minWidth="101.0" mnemonicParsing="false" onAction="#actCancelar" style="-fx-background-color: YELLOW;" text="VOLVER">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
