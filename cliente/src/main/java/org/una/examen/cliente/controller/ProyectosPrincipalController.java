@@ -30,6 +30,7 @@ import org.una.examen.cliente.App;
 import org.una.examen.cliente.dto.ProyectoDTO;
 import org.una.examen.cliente.service.ProyectoService;
 import org.una.examen.cliente.util.AppContext;
+import org.una.examen.cliente.util.Formato;
 import org.una.examen.cliente.util.Mensaje;
 import org.una.examen.cliente.util.Respuesta;
 
@@ -63,9 +64,12 @@ public class ProyectosPrincipalController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         AppContext.getInstance().set("ControllerPrincipal", this);
+        Formato();
     }    
 
-    
+    public void Formato(){
+        txtBusqueda.setTextFormatter(Formato.getInstance().maxLengthFormat(50));
+    }
     
     private ProyectoService proyectoService = new ProyectoService();
     @FXML

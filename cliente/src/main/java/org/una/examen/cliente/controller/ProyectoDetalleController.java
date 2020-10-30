@@ -37,6 +37,7 @@ import org.una.examen.cliente.dto.TareaDTO;
 import org.una.examen.cliente.service.ProyectoService;
 import org.una.examen.cliente.service.TareaService;
 import org.una.examen.cliente.util.AppContext;
+import org.una.examen.cliente.util.Formato;
 import org.una.examen.cliente.util.Mensaje;
 import org.una.examen.cliente.util.Respuesta;
 
@@ -82,6 +83,7 @@ public class ProyectoDetalleController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        Formato();
         btnListo.setText("Salir");
         modalidad=(String) AppContext.getInstance().get("ModalidadProyecto");
         cargarTabla();
@@ -99,6 +101,11 @@ public class ProyectoDetalleController implements Initializable {
         // TODO
     }    
 
+    public void Formato(){
+        txtNombre.setTextFormatter(Formato.getInstance().maxLengthFormat(20));
+        txtResponsable.setTextFormatter(Formato.getInstance().maxLengthFormat(50));
+        txtDescripcion.setTextFormatter(Formato.getInstance().maxLengthFormat(200));
+    }
     
     
     @FXML

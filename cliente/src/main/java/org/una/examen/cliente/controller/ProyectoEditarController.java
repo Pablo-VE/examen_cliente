@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 import org.una.examen.cliente.dto.ProyectoDTO;
 import org.una.examen.cliente.service.ProyectoService;
 import org.una.examen.cliente.util.AppContext;
+import org.una.examen.cliente.util.Formato;
 import org.una.examen.cliente.util.Mensaje;
 import org.una.examen.cliente.util.Respuesta;
 
@@ -49,6 +50,7 @@ public class ProyectoEditarController implements Initializable {
     ProyectoService proyectoService = new ProyectoService();
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        Formato();
         proyecto = (ProyectoDTO) AppContext.getInstance().get("Proyecto");
         txtNombre.setText(proyecto.getNombre());
         txtResponsable.setText(proyecto.getResponsable());
@@ -56,7 +58,13 @@ public class ProyectoEditarController implements Initializable {
             txtDescripcion.setText(proyecto.getDescipcion());
         }
         // TODO
-    }    
+    }   
+    
+    public void Formato(){
+        txtNombre.setTextFormatter(Formato.getInstance().maxLengthFormat(20));
+        txtResponsable.setTextFormatter(Formato.getInstance().maxLengthFormat(50));
+        txtDescripcion.setTextFormatter(Formato.getInstance().maxLengthFormat(200));
+    }
 
     @FXML
     private void actGuardar(ActionEvent event) {

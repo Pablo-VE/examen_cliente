@@ -32,9 +32,9 @@
          </font>
       </Label>
       <JFXTextArea fx:id="txtDescripcion" focusColor="YELLOW" labelFloat="true" layoutX="402.0" layoutY="75.0" prefHeight="48.0" prefWidth="266.0" promptText="Descrición" unFocusColor="WHITE" />
-      <DatePicker fx:id="dpFechaInicio" layoutX="52.0" layoutY="175.0" onAction="#actSelFechaInicio" prefHeight="37.0" prefWidth="266.0" />
+      <DatePicker fx:id="dpFechaInicio" editable="false" layoutX="52.0" layoutY="175.0" onAction="#actSelFechaInicio" prefHeight="37.0" prefWidth="266.0" />
       <Label layoutX="145.0" layoutY="145.0" text="Fecha de inicio" textFill="WHITE" />
-      <DatePicker fx:id="dpFechaFinalizacion" layoutX="401.0" layoutY="175.0" onAction="#actSelFechaFinalizacion" prefHeight="37.0" prefWidth="266.0" />
+      <DatePicker fx:id="dpFechaFinalizacion" editable="false" layoutX="401.0" layoutY="175.0" onAction="#actSelFechaFinalizacion" prefHeight="37.0" prefWidth="266.0" />
       <Label layoutX="476.0" layoutY="145.0" text="Fecha de finalización" textFill="WHITE" />
       <JFXComboBox fx:id="cbNivelImportancia" focusColor="YELLOW" labelFloat="true" layoutX="54.0" layoutY="243.0" onAction="#actNivelImportancia" prefHeight="25.0" prefWidth="266.0" promptText="Nivel de importancia" unFocusColor="WHITE" />
       <JFXComboBox fx:id="cbNivelUrgencia" focusColor="YELLOW" labelFloat="true" layoutX="402.0" layoutY="243.0" onAction="#actNivelUrgencia" prefHeight="25.0" prefWidth="266.0" promptText="Nivel de urgencia" unFocusColor="WHITE" />
