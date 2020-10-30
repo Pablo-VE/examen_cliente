@@ -68,7 +68,7 @@ public class ProyectoTreeBig extends VBox {
         
         Label nombre = new Label();
         nombre.setText(String.valueOf(proyecto.getId())+". "+proyecto.getNombre());
-        nombre.setPrefWidth(585);
+        nombre.setPrefWidth(565);
         //set estilo al label
         titulo.getChildren().add(nombre);  
         crearBotones();
@@ -76,6 +76,7 @@ public class ProyectoTreeBig extends VBox {
     
     public void crearBotones(){
         Button btnAgregarTarea = new Button();
+        btnAgregarTarea.setStyle(estilosBoton());
         btnAgregarTarea.setText("Agregar tarea");
         btnAgregarTarea.setOnMouseClicked(event ->{
             try{
@@ -96,6 +97,7 @@ public class ProyectoTreeBig extends VBox {
             };
         });
         Button btnModificarProyecto = new Button();
+        btnModificarProyecto.setStyle(estilosBoton());
         btnModificarProyecto.setText("Modificar proyecto");
         btnModificarProyecto.setOnMouseClicked(event ->{
             try{
@@ -129,7 +131,11 @@ public class ProyectoTreeBig extends VBox {
                 "   -fx-spacing: 15;" ;
     }
     
-    
+    public String estilosBoton(){
+        return  "-fx-background-color: #000000;"+
+                "-fx-font-size: 10pt;"+
+                "-fx-text-fill: #ffffff;";
+    }
     
     
     

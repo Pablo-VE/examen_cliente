@@ -120,8 +120,10 @@ public class TareaTree extends HBox{
         } catch (MalformedURLException ex) {
             Logger.getLogger(TareaTree.class.getName()).log(Level.SEVERE, null, ex);
         }
-        ImageView ivEditar = new ImageView(ima);
         
+        ImageView ivEditar = new ImageView(ima);
+        ivEditar.setFitHeight(30);
+        ivEditar.setFitWidth(30);
         ivEditar.setOnMouseClicked(event ->{
             try{
                 Stage stage = new Stage();
