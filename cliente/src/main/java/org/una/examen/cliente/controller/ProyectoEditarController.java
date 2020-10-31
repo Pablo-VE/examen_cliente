@@ -61,7 +61,7 @@ public class ProyectoEditarController implements Initializable {
     }   
     
     public void Formato(){
-        txtNombre.setTextFormatter(Formato.getInstance().maxLengthFormat(20));
+        txtNombre.setTextFormatter(Formato.getInstance().maxLengthFormat(50));
         txtResponsable.setTextFormatter(Formato.getInstance().maxLengthFormat(50));
         txtDescripcion.setTextFormatter(Formato.getInstance().maxLengthFormat(200));
     }
