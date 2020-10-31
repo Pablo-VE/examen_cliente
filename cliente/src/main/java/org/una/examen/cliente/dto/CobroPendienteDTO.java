@@ -15,9 +15,9 @@ import javax.json.bind.annotation.JsonbDateFormat;
  */
 public class CobroPendienteDTO {
     private Long id;
-    private String ano;
+    private int ano;
     private int periodo;
-    private double monto;
+    private float monto;
     private boolean estado;
     @JsonbDateFormat(value = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
     private Date fechaGenerado;
@@ -29,13 +29,12 @@ public class CobroPendienteDTO {
     public CobroPendienteDTO(){  
     } 
     
-    public CobroPendienteDTO(Long id, String ano, int periodo, double  monto, boolean estado, Data fechaGenerada, Data fechaVencimiento, MembresiaDTO membresia){
+    public CobroPendienteDTO(Long id, int ano, int periodo, float  monto, boolean estado, Date fechaVencimiento, MembresiaDTO membresia){
         this.id=id;
         this.ano=ano;
         this.periodo=periodo;
         this.monto=monto;
         this.estado=estado;
-        this.fechaGenerado=fechaGenerado;
         this.fechaVencimiento=this.fechaVencimiento;
         this.membresia=membresia;
     } 
@@ -45,6 +44,13 @@ public class CobroPendienteDTO {
     }
     public void setId(Long id){
         this.id=id;
+    }
+    
+    public int getAno(){
+        return ano;
+    }
+    public void setAno(int ano){
+        this.ano=ano;
     }
     
     public int getPeriodo(){
@@ -57,7 +63,7 @@ public class CobroPendienteDTO {
     public double getMonto(){
         return monto;
     }
-    public void setMonto(double  monto){
+    public void setMonto(float  monto){
         this.monto=monto;
     }
     

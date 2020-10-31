@@ -18,19 +18,19 @@ import org.una.examen.cliente.util.Respuesta;
  * @author Luis
  */
 public class MembresiaService {
-     public Respuesta crear(MembresiaDTO membresia){
+    public Respuesta crear(MembresiaDTO membresia){
         try{
-            ConexionServidor conexion = new ConexionServidor(1,"membresias/crear");
+            ConexionServidor conexion = new ConexionServidor(3,"membresias/crear");
             conexion.post(membresia);
             if(conexion.isError()){
-                System.out.println("Error creacion de proyecto: "+conexion.getError());
+                System.out.println("Error creacion membresia: "+conexion.getError());
                 return new Respuesta(false, conexion.getError(), "No se pudo crear la membresia");
             }
             MembresiaDTO result = (MembresiaDTO) conexion.readEntity(MembresiaDTO.class);
             return new Respuesta(true, "Membresia", result);
         }catch(Exception ex){
             System.out.println(ex.toString());
-            System.out.println("Excepcion creacion de la membresia: "+ex.getMessage());
+            System.out.println("Excepcion creacion membresia: "+ex.getMessage());
             return new Respuesta(false, ex.toString(), "No pudo establecerse conexion con el servidor");
         }
     }
@@ -39,7 +39,7 @@ public class MembresiaService {
         try{
             Map<String, Object> parametros = new HashMap<>();
             parametros.put("id", id);
-            ConexionServidor conexion = new ConexionServidor(1,"membresias/modificar", "/{id}", parametros);
+            ConexionServidor conexion = new ConexionServidor(3,"membresias/modificar", "/{id}", parametros);
             conexion.put(membresia);
             if(conexion.isError()){
                 return new Respuesta(false, conexion.getError(), "No se pudo modificar la membresia");
@@ -56,7 +56,7 @@ public class MembresiaService {
         try{
             Map<String, Object> parametros = new HashMap<>();
             parametros.put("id", id);
-            ConexionServidor conexion = new ConexionServidor(1,"membresias", "/{id}", parametros);
+            ConexionServidor conexion = new ConexionServidor(3,"membresias", "/{id}", parametros);
             conexion.get();
             if(conexion.isError()){
                 return new Respuesta(false, conexion.getError(), "Error al buscar membresia por su id");
@@ -70,7 +70,7 @@ public class MembresiaService {
     
     public Respuesta getAll(){
         try{
-            ConexionServidor conexion = new ConexionServidor(1,"membresias/");
+            ConexionServidor conexion = new ConexionServidor(3,"membresias/");
             conexion.get();
             if(conexion.isError()){
                 return new Respuesta(false, conexion.getError(), "Error al buscar todos los proyectos");

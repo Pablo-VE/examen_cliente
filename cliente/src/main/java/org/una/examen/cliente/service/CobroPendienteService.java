@@ -20,7 +20,7 @@ import org.una.examen.cliente.util.Respuesta;
 public class CobroPendienteService {
        public Respuesta crear(CobroPendienteDTO cobroPendiente){
         try{
-            ConexionServidor conexion = new ConexionServidor(1,"cobrosPendientes/crear");
+            ConexionServidor conexion = new ConexionServidor(3,"cobrosPendientes/crear");
             conexion.post(cobroPendiente);
             if(conexion.isError()){
                 System.out.println("Error creacion del cobro pendiente: "+conexion.getError());
@@ -39,7 +39,7 @@ public class CobroPendienteService {
         try{
             Map<String, Object> parametros = new HashMap<>();
             parametros.put("id", id);
-            ConexionServidor conexion = new ConexionServidor(1,"cobrosPendientes/modificar", "/{id}", parametros);
+            ConexionServidor conexion = new ConexionServidor(3,"cobrosPendientes/modificar", "/{id}", parametros);
             conexion.put(cobroPendiente);
             if(conexion.isError()){
                 return new Respuesta(false, conexion.getError(), "No se pudo modificar el cobro pendiente");
@@ -56,7 +56,7 @@ public class CobroPendienteService {
         try{
             Map<String, Object> parametros = new HashMap<>();
             parametros.put("id", id);
-            ConexionServidor conexion = new ConexionServidor(1,"cobrosPendientes", "/{id}", parametros);
+            ConexionServidor conexion = new ConexionServidor(3,"cobrosPendientes", "/{id}", parametros);
             conexion.get();
             if(conexion.isError()){
                 return new Respuesta(false, conexion.getError(), "Error al buscar el cobro pendiente por su id");
@@ -70,7 +70,7 @@ public class CobroPendienteService {
     
     public Respuesta getAll(){
         try{
-            ConexionServidor conexion = new ConexionServidor(1,"cobrosPendientes/");
+            ConexionServidor conexion = new ConexionServidor(3,"cobrosPendientes/");
             conexion.get();
             if(conexion.isError()){
                 return new Respuesta(false, conexion.getError(), "Error al buscar todos los cobros pendientes");
