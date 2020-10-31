@@ -31,7 +31,7 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Button fx:id="btnAgregar" layoutX="69.0" layoutY="110.0" mnemonicParsing="false" onAction="#actAgregar" prefHeight="30.0" prefWidth="212.0" style="-fx-background-color: YELLOW;" text="AGREGAR RANGO Y COLOR">
+      <Button fx:id="btnAgregar" layoutX="69.0" layoutY="109.0" mnemonicParsing="false" onAction="#actAgregar" prefHeight="30.0" prefWidth="212.0" style="-fx-background-color: YELLOW;" text="AGREGAR RANGO Y COLOR">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -41,8 +41,16 @@
             <Font name="System Bold" size="16.0" />
          </font>
       </Button>
-      <Label layoutX="85.0" layoutY="575.0" text="Las tareas que no posean un porcentaje de avance que esté entre" textFill="WHITE" />
-      <Label layoutX="85.0" layoutY="604.0" text="los colores establecidos en estos rangos, tendrán el siguiente color:" textFill="WHITE" />
-      <Circle fill="#f0d0ce" layoutX="477.0" layoutY="600.0" radius="19.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <Label layoutX="523.0" layoutY="107.0" text="Las tareas que no posean un porcentaje de avance que esté entre" textFill="WHITE" />
+      <Label layoutX="523.0" layoutY="126.0" text="los colores establecidos en estos rangos, tendrán el siguiente color:" textFill="WHITE">
+         <font>
+            <Font size="11.72" />
+         </font></Label>
+      <Circle fill="#f0d0ce" layoutX="894.0" layoutY="126.0" radius="15.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <Label layoutX="493.0" layoutY="551.0" text="Si no presiona el botón de &quot;Guardar&quot; ningún cambió se aplicacará a la aplicación" textFill="WHITE">
+         <font>
+            <Font size="11.72" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>
