@@ -21,11 +21,14 @@ public class UnidadDTO {
     public UnidadDTO(){
     }
     
-    public UnidadDTO(Long id, String nombre, int codigo, DistritoDTO distrito){
+    public UnidadDTO(Long id, String nombre, int codigo, DistritoDTO distrito, String tipo, Long area, Long poblacion){
         this.id = id;
         this.nombre = nombre;
         this.codigo = codigo;
         this.distrito = distrito;
+        this.tipo = tipo;
+        this.area = area;
+        this.poblacion = poblacion;
     }
     
     public Long getId(){

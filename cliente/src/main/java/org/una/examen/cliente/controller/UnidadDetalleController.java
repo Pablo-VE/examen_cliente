@@ -26,6 +26,7 @@ import org.una.examen.cliente.service.DistritoService;
 import org.una.examen.cliente.service.ProvinciaService;
 import org.una.examen.cliente.service.UnidadService;
 import org.una.examen.cliente.util.AppContext;
+import org.una.examen.cliente.util.AreaYPoblacion;
 import org.una.examen.cliente.util.Mensaje;
 import org.una.examen.cliente.util.Respuesta;
 
@@ -60,6 +61,7 @@ public class UnidadDetalleController implements Initializable {
     private UnidadDTO unidad = new UnidadDTO();
     private UnidadService unidadService = new UnidadService();
     private UnidadesController unidadesController;
+    private AreaYPoblacion ap = new AreaYPoblacion();
 
     /**
      * Initializes the controller class.
@@ -110,7 +112,7 @@ public class UnidadDetalleController implements Initializable {
             
             if(modalidad.equals("Modificar")){
                 unidad.setNombre(txtNombre.getText());
-                unidad.setCodigo(3);
+                unidad.setCodigo(unidad.getCodigo());
                 unidad.setDistrito(cbDistrito.getValue());
                 unidad.setTipo(txtTipo.getText());
                 unidad.setArea(Long.valueOf(txtArea.getText()));
@@ -126,7 +128,9 @@ public class UnidadDetalleController implements Initializable {
             }else{
                 if(modalidad.equals("Agregar")){
                     unidad.setNombre(txtNombre.getText());
-                    unidad.setCodigo(1);
+                    Respuesta res = unidadService.getAll();
+                    ArrayList<UnidadDTO> unidades = (ArrayList<UnidadDTO>)res.getResultado("Unidades");
+                    unidad.setCodigo(ap.getCodigoNuevoUnidad(unidades));
                     unidad.setDistrito(cbDistrito.getValue());
                     unidad.setArea(Long.valueOf(txtArea.getText()));
                     unidad.setTipo(txtTipo.getText());

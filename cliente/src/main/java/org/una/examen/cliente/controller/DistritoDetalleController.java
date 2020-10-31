@@ -25,6 +25,7 @@ import org.una.examen.cliente.service.CantonService;
 import org.una.examen.cliente.service.DistritoService;
 import org.una.examen.cliente.service.ProvinciaService;
 import org.una.examen.cliente.util.AppContext;
+import org.una.examen.cliente.util.AreaYPoblacion;
 import org.una.examen.cliente.util.Mensaje;
 import org.una.examen.cliente.util.Respuesta;
 
@@ -50,6 +51,8 @@ public class DistritoDetalleController implements Initializable {
     private DistritoDTO distrito = new DistritoDTO();
     private DistritoService distritoService = new DistritoService();
     private DistritosController distritosController;
+    
+    private AreaYPoblacion ap = new AreaYPoblacion();
     @FXML
     private JFXComboBox<CantonDTO> cbCanton;
 
@@ -92,7 +95,7 @@ public class DistritoDetalleController implements Initializable {
             
             if(modalidad.equals("Modificar")){
                 distrito.setNombre(txtNombre.getText());
-                distrito.setCodigo(3);
+                distrito.setCodigo(distrito.getCodigo());
                 distrito.setCanton(cbCanton.getValue());
                 Respuesta respuesta = distritoService.modificar(distrito.getId(), distrito);
                 if(respuesta.getEstado()){
@@ -105,7 +108,9 @@ public class DistritoDetalleController implements Initializable {
             }else{
                 if(modalidad.equals("Agregar")){
                     distrito.setNombre(txtNombre.getText());
-                    distrito.setCodigo(1);
+                    Respuesta res = distritoService.getAll();
+                    ArrayList<DistritoDTO> distritos = (ArrayList<DistritoDTO>)res.getResultado("Distritos");
+                    distrito.setCodigo(ap.getCodigoNuevoDistrito(distritos));
                     distrito.setCanton(cbCanton.getValue());
                     Respuesta respuesta = distritoService.crear(distrito);
                     if(respuesta.getEstado()){

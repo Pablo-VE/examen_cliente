@@ -33,7 +33,11 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import org.una.examen.cliente.App;
+import org.una.examen.cliente.dto.CantonDTO;
+import org.una.examen.cliente.dto.DistritoDTO;
 import org.una.examen.cliente.dto.UnidadDTO;
+import org.una.examen.cliente.service.CantonService;
+import org.una.examen.cliente.service.DistritoService;
 import org.una.examen.cliente.service.UnidadService;
 import org.una.examen.cliente.util.AppContext;
 import org.una.examen.cliente.util.Mensaje;
@@ -60,6 +64,10 @@ public class UnidadesController implements Initializable {
     private TableView<UnidadDTO> tableView;
     
     private UnidadService unidadService = new UnidadService();
+    @FXML
+    private JFXComboBox<DistritoDTO> cbDistrito;
+    @FXML
+    private JFXButton btnBuscarDistrito;
 
     /**
      * Initializes the controller class.
@@ -73,10 +81,10 @@ public class UnidadesController implements Initializable {
         tiposBusqueda.add("Por Código");
         tiposBusqueda.add("Por Área");
         tiposBusqueda.add("Por Población");
-        tiposBusqueda.add("Por Distrito");
         ObservableList items = FXCollections.observableArrayList(tiposBusqueda);   
         cbTipoBusqueda.setItems(items);
         cargarTodos();
+        initDistritos();
     }
     
     public void cargarTodos(){
@@ -92,6 +100,7 @@ public class UnidadesController implements Initializable {
     }
     
     public void cargarTabla(ArrayList<UnidadDTO> cantones){
+        
         tableView.getColumns().clear();
         if(!cantones.isEmpty()){
             ObservableList items = FXCollections.observableArrayList(cantones);   
@@ -277,5 +286,31 @@ public class UnidadesController implements Initializable {
             Mensaje.showAndWait(Alert.AlertType.ERROR, "Opps :c", "Se ha producido un error inesperado en la aplicación");
         };
     }
-    
+
+    @FXML
+    private void actBuscarDistrito(ActionEvent event) {
+        if(cbDistrito.getValue() != null){
+            ArrayList<UnidadDTO> provincias = new ArrayList<UnidadDTO>();
+            System.out.println(cbDistrito.getValue());
+            Respuesta respuesta = unidadService.getByDistrito(cbDistrito.getValue().getId());
+            if(respuesta.getEstado()){
+                provincias = (ArrayList<UnidadDTO>) respuesta.getResultado("Unidades");  
+            }else{
+                System.out.println(respuesta.getMensaje());
+            }
+            cargarTabla(provincias);
+        }
+    }
+    public void initDistritos(){
+        DistritoService distritoService = new DistritoService();
+        ArrayList<DistritoDTO> cantones;
+        Respuesta respuesta = distritoService.getAll();
+        if(respuesta.getEstado()){
+            cantones = (ArrayList<DistritoDTO>) respuesta.getResultado("Distritos");
+            ObservableList items = FXCollections.observableArrayList(cantones);
+            cbDistrito.setItems(items);
+        }else{
+            System.out.println(respuesta.getMensaje());
+        }
+    }
 }

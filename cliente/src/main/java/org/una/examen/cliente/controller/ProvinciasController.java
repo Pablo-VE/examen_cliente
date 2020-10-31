@@ -41,6 +41,7 @@ import org.una.examen.cliente.App;
 import org.una.examen.cliente.dto.ProvinciaDTO;
 import org.una.examen.cliente.service.ProvinciaService;
 import org.una.examen.cliente.util.AppContext;
+import org.una.examen.cliente.util.AreaYPoblacion;
 import org.una.examen.cliente.util.Mensaje;
 import org.una.examen.cliente.util.Respuesta;
 
@@ -70,12 +71,15 @@ public class ProvinciasController implements Initializable {
     
     
     private ProvinciaService provinciaService = new ProvinciaService();
+    AreaYPoblacion ap = new AreaYPoblacion();
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        
+        
         AppContext.getInstance().set("ProvinciaController", this);
         ArrayList tiposBusqueda = new ArrayList();
         tiposBusqueda.add("Por Nombre");
@@ -101,26 +105,26 @@ public class ProvinciasController implements Initializable {
         
     }
     
-    public void cargarTabla(ArrayList<ProvinciaDTO> aerolineas){
+    public void cargarTabla(ArrayList<ProvinciaDTO> provincias){
+        
         tableView.getColumns().clear();
-        if(!aerolineas.isEmpty()){
-            ObservableList items = FXCollections.observableArrayList(aerolineas);   
+        if(!provincias.isEmpty()){
+            ap.setAreaPoblacionProvincias(provincias);
+            ObservableList items = FXCollections.observableArrayList(provincias);   
             
-            TableColumn <ProvinciaDTO, Long>colId = new TableColumn("ID");
-            colId.setCellValueFactory(new PropertyValueFactory("id"));
             TableColumn <ProvinciaDTO, Long>colCodigo = new TableColumn("Código");
             colCodigo.setCellValueFactory(new PropertyValueFactory("codigo"));
             TableColumn <ProvinciaDTO, String>colNombre = new TableColumn("Nombre");
             colNombre.setCellValueFactory(new PropertyValueFactory("nombre"));
-            //TableColumn <ProvinciaDTO, String>colArea = new TableColumn("Área");
-            //colResponsable.setCellValueFactory(new PropertyValueFactory("responsable"));
-            //TableColumn <ProvinciaDTO, String>colPoblacion = new TableColumn("Población");
+            TableColumn <ProvinciaDTO, String>colArea = new TableColumn("Área");
+            colArea.setCellValueFactory(new PropertyValueFactory("area"));
+            TableColumn <ProvinciaDTO, String>colPoblacion = new TableColumn("Población");
+            colPoblacion.setCellValueFactory(new PropertyValueFactory("poblacion"));
             
-            tableView.getColumns().addAll(colId);
             tableView.getColumns().addAll(colCodigo);
             tableView.getColumns().addAll(colNombre);
-            //tableView.getColumns().addAll(colArea);
-            //tableView.getColumns().addAll(colPoblacion);
+            tableView.getColumns().addAll(colArea);
+            tableView.getColumns().addAll(colPoblacion);
             addButtonToTable();
             tableView.setItems(items);
         }else{

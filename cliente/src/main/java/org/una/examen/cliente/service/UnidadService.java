@@ -104,7 +104,7 @@ public class UnidadService {
         try{
             Map<String, Object> parametros = new HashMap<>();
             parametros.put("term", distrito);
-            ConexionServidor conexion = new ConexionServidor(2,"unidades/", "{term}", parametros);
+            ConexionServidor conexion = new ConexionServidor(2,"unidades/list/distrito", "/{term}", parametros);
             conexion.get();
             if(conexion.isError()){
                 return new Respuesta(false, conexion.getError(), "Error al buscar las unidades por distrito");

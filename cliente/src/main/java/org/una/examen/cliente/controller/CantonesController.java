@@ -11,7 +11,9 @@ import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.ResourceBundle;
+import java.util.Set;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -37,10 +39,13 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import org.una.examen.cliente.App;
 import org.una.examen.cliente.dto.CantonDTO;
+import org.una.examen.cliente.dto.DistritoDTO;
 import org.una.examen.cliente.dto.ProvinciaDTO;
+import org.una.examen.cliente.dto.UnidadDTO;
 import org.una.examen.cliente.service.CantonService;
 import org.una.examen.cliente.service.ProvinciaService;
 import org.una.examen.cliente.util.AppContext;
+import org.una.examen.cliente.util.AreaYPoblacion;
 import org.una.examen.cliente.util.Mensaje;
 import org.una.examen.cliente.util.Respuesta;
 
@@ -65,6 +70,12 @@ public class CantonesController implements Initializable {
     private CantonService cantonService = new CantonService();
     @FXML
     private JFXComboBox<Object> cbBusqueda;
+    @FXML
+    private JFXComboBox<ProvinciaDTO> cbProvincia;
+    @FXML
+    private JFXButton btnBuscarProvincia;
+    
+    AreaYPoblacion ap = new AreaYPoblacion();
 
     /**
      * Initializes the controller class.
@@ -82,6 +93,7 @@ public class CantonesController implements Initializable {
         ObservableList items = FXCollections.observableArrayList(tiposBusqueda);   
         cbTipoBusqueda.setItems(items);
         cargarTodos();
+        initProvincias();
     }    
 
     public void cargarTodos(){
@@ -99,23 +111,23 @@ public class CantonesController implements Initializable {
     public void cargarTabla(ArrayList<CantonDTO> cantones){
         tableView.getColumns().clear();
         if(!cantones.isEmpty()){
+            ap.setAreaPoblacionCantones(cantones);
+            
+            
             ObservableList items = FXCollections.observableArrayList(cantones);   
             
-            TableColumn <CantonDTO, Long>colId = new TableColumn("ID");
-            colId.setCellValueFactory(new PropertyValueFactory("id"));
             TableColumn <CantonDTO, Long>colCodigo = new TableColumn("Código");
             colCodigo.setCellValueFactory(new PropertyValueFactory("codigo"));
             TableColumn <CantonDTO, String>colNombre = new TableColumn("Nombre");
             colNombre.setCellValueFactory(new PropertyValueFactory("nombre"));
             
             TableColumn <CantonDTO, String>colArea = new TableColumn("Área");
-            
+            colArea.setCellValueFactory(new PropertyValueFactory("area"));
             TableColumn <CantonDTO, String>colPoblacion = new TableColumn("Población");
-            
+            colPoblacion.setCellValueFactory(new PropertyValueFactory("poblacion"));
             TableColumn <CantonDTO, String>colProvincia = new TableColumn("Provincia");
             colProvincia.setCellValueFactory(new PropertyValueFactory("provincia"));
             
-            tableView.getColumns().addAll(colId);
             tableView.getColumns().addAll(colCodigo);
             tableView.getColumns().addAll(colNombre);
             tableView.getColumns().addAll(colArea);
@@ -306,5 +318,28 @@ public class CantonesController implements Initializable {
             }
         }
     }
-    
+
+    @FXML
+    private void actBuscarProvincia(ActionEvent event) {
+    if(cbProvincia.getValue() != null){
+            ArrayList<CantonDTO> provincias = new ArrayList<CantonDTO>();
+            Respuesta respuesta = cantonService.getByProvincia(cbProvincia.getValue().getId());
+            if(respuesta.getEstado()){
+                provincias = (ArrayList<CantonDTO>) respuesta.getResultado("Cantones");  
+            }else{
+                System.out.println(respuesta.getMensaje());
+            }
+            cargarTabla(provincias);
+        }
+    }
+    public void initProvincias(){
+        ProvinciaService provinciaService = new ProvinciaService();
+        ArrayList<ProvinciaDTO> provincias;
+        Respuesta respuesta = provinciaService.getAll();
+        if(respuesta.getEstado()){
+            provincias = (ArrayList<ProvinciaDTO>) respuesta.getResultado("Provincias");
+            ObservableList items = FXCollections.observableArrayList(provincias);
+            cbProvincia.setItems(items);
+        }
+    }
 }

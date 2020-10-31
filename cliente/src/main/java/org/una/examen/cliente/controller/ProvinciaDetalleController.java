@@ -9,6 +9,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -25,6 +26,7 @@ import org.una.examen.cliente.App;
 import org.una.examen.cliente.dto.ProvinciaDTO;
 import org.una.examen.cliente.service.ProvinciaService;
 import org.una.examen.cliente.util.AppContext;
+import org.una.examen.cliente.util.AreaYPoblacion;
 import org.una.examen.cliente.util.Mensaje;
 import org.una.examen.cliente.util.Respuesta;
 
@@ -50,6 +52,8 @@ public class ProvinciaDetalleController implements Initializable {
     private JFXButton btnEliminar;
     @FXML
     private Label lblInfo;
+    
+    private AreaYPoblacion ap = new AreaYPoblacion();
 
     /**
      * Initializes the controller class.
@@ -84,10 +88,7 @@ public class ProvinciaDetalleController implements Initializable {
             
             if(modalidad.equals("Modificar")){
                 provincia.setNombre(txtNombre.getText());
-                provincia.setCodigo(3
-                
-                
-                );
+                provincia.setCodigo(provincia.getCodigo());
                 Respuesta respuesta = provinciaService.modificar(provincia.getId(), provincia);
                 if(respuesta.getEstado()){
                     Mensaje.showAndWait(Alert.AlertType.INFORMATION, "Modificación de provincia", "Se ha modificado la provincia correctamente");
@@ -99,7 +100,9 @@ public class ProvinciaDetalleController implements Initializable {
             }else{
                 if(modalidad.equals("Agregar")){
                     provincia.setNombre(txtNombre.getText());
-                    provincia.setCodigo(1);
+                    Respuesta res = provinciaService.getAll();
+                    ArrayList<ProvinciaDTO> provincias = (ArrayList<ProvinciaDTO>)res.getResultado("Provincias");
+                    provincia.setCodigo(ap.getCodigoNuevoProvincia(provincias));
                     Respuesta respuesta = provinciaService.crear(provincia);
                     if(respuesta.getEstado()){
                         provincia = (ProvinciaDTO) respuesta.getResultado("Provincia");

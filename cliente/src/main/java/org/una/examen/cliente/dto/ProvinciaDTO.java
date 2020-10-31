@@ -13,20 +13,35 @@ public class ProvinciaDTO {
     private Long id;
     private String nombre;
     private int codigo;
+    private Long area;
+    private Long poblacion;
     
     public ProvinciaDTO(){
     }
     
-    public ProvinciaDTO(Long id, String nombre, int codigo){
+    public ProvinciaDTO(Long id, String nombre, int codigo, Long area, Long poblacion){
         this.id = id;
         this.nombre = nombre;
         this.codigo = codigo;
+        this.poblacion = poblacion;
+        this.area = area;
     }
     
     public Long getId(){
         return id;
     }
-    
+    public Long getArea(){
+        return area;
+    }
+    public void setArea(Long area){
+        this.area = area;
+    }
+    public Long getPoblacion(){
+        return poblacion;
+    }
+    public void setPoblacion(Long poblacion){
+        this.poblacion = poblacion;
+    }
     public void setId(Long id){
         this.id = id;
     }

@@ -104,10 +104,10 @@ public class DistritoService {
         try{
             Map<String, Object> parametros = new HashMap<>();
             parametros.put("term", canton);
-            ConexionServidor conexion = new ConexionServidor(2,"distritos/", "{term}", parametros);
+            ConexionServidor conexion = new ConexionServidor(2,"distritos/list/canton", "/{term}", parametros);
             conexion.get();
             if(conexion.isError()){
-                return new Respuesta(false, conexion.getError(), "Error al buscar los distrito por cantón");
+                return new Respuesta(false, conexion.getError(), "Error al buscar los distritos por cantón");
             }
             List<DistritoDTO> result = (List<DistritoDTO>) conexion.readEntity(new GenericType<List<DistritoDTO>>(){});
             return new Respuesta(true, "Distritos",result);

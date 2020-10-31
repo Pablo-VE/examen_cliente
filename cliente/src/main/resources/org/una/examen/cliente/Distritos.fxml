@@ -38,7 +38,7 @@
             </TableView>
          </children>
       </AnchorPane>
-      <JFXComboBox fx:id="cbCanton" editable="true" layoutX="168.0" layoutY="71.0" prefHeight="35.0" prefWidth="372.0" />
+      <JFXComboBox fx:id="cbCanton" layoutX="168.0" layoutY="71.0" prefHeight="35.0" prefWidth="372.0" />
       <Label layoutX="36.0" layoutY="88.0" text="Buscar por Cantón:" />
       <JFXButton fx:id="btnBuscarCanton" layoutX="553.0" layoutY="71.0" onAction="#actBuscarCanton" prefHeight="35.0" prefWidth="122.0" style="-fx-background-color: #6dc36d;" text="Filtrar" />
    </children>

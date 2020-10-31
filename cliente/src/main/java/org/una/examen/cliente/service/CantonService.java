@@ -104,7 +104,7 @@ public class CantonService {
         try{
             Map<String, Object> parametros = new HashMap<>();
             parametros.put("term", provincia);
-            ConexionServidor conexion = new ConexionServidor(2,"cantones/", "{term}", parametros);
+            ConexionServidor conexion = new ConexionServidor(2,"cantones/list/provincia/", "{term}", parametros);
             conexion.get();
             if(conexion.isError()){
                 return new Respuesta(false, conexion.getError(), "Error al buscar el cantón por provincia");

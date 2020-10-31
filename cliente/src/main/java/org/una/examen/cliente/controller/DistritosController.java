@@ -39,6 +39,7 @@ import org.una.examen.cliente.dto.DistritoDTO;
 import org.una.examen.cliente.service.CantonService;
 import org.una.examen.cliente.service.DistritoService;
 import org.una.examen.cliente.util.AppContext;
+import org.una.examen.cliente.util.AreaYPoblacion;
 import org.una.examen.cliente.util.Mensaje;
 import org.una.examen.cliente.util.Respuesta;
 
@@ -67,6 +68,7 @@ public class DistritosController implements Initializable {
     private JFXButton btnBuscarCanton;
     
     private DistritoService distritoService = new DistritoService();
+    AreaYPoblacion ap = new AreaYPoblacion();
 
     /**
      * Initializes the controller class.
@@ -99,21 +101,23 @@ public class DistritosController implements Initializable {
         
     }
     
-    public void cargarTabla(ArrayList<DistritoDTO> cantones){
+    public void cargarTabla(ArrayList<DistritoDTO> distritos){
         tableView.getColumns().clear();
-        if(!cantones.isEmpty()){
-            ObservableList items = FXCollections.observableArrayList(cantones);   
+        if(!distritos.isEmpty()){
+            ap.setAreaPoblacionDistritos(distritos);
+            ObservableList items = FXCollections.observableArrayList(distritos);   
             
             TableColumn <DistritoDTO, Long>colCodigo = new TableColumn("Código");
             colCodigo.setCellValueFactory(new PropertyValueFactory("codigo"));
             TableColumn <DistritoDTO, String>colNombre = new TableColumn("Nombre");
             colNombre.setCellValueFactory(new PropertyValueFactory("nombre"));
-                TableColumn <DistritoDTO, String>colCanton = new TableColumn("Cantón");
+            TableColumn <DistritoDTO, String>colCanton = new TableColumn("Cantón");
             colCanton.setCellValueFactory(new PropertyValueFactory("canton"));
             
             TableColumn <DistritoDTO, String>colArea = new TableColumn("Área");
-            
+            colArea.setCellValueFactory(new PropertyValueFactory("area"));
             TableColumn <DistritoDTO, String>colPoblacion = new TableColumn("Población");
+            colPoblacion.setCellValueFactory(new PropertyValueFactory("poblacion"));
             
             tableView.getColumns().addAll(colCodigo);
             tableView.getColumns().addAll(colNombre);

@@ -14,6 +14,8 @@ public class CantonDTO {
     private String nombre;
     private int codigo;
     private ProvinciaDTO provincia;
+    private Long area;
+    private Long poblacion;
     
     public CantonDTO(){
     }
@@ -31,6 +33,19 @@ public class CantonDTO {
     
     public String getNombre(){
         return nombre;
+    }
+    
+    public Long getArea(){
+        return area;
+    }
+    public void setArea(Long area){
+        this.area = area;
+    }
+    public Long getPoblacion(){
+        return poblacion;
+    }
+    public void setPoblacion(Long poblacion){
+        this.poblacion = poblacion;
     }
     
     public int getCodigo(){

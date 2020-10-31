@@ -13,19 +13,19 @@
       <JFXButton fx:id="btnBuscar" layoutX="556.0" layoutY="52.0" onAction="#actBuscar" prefHeight="35.0" prefWidth="122.0" style="-fx-background-color: #6dc36d;" text="Filtrar" />
       <JFXComboBox fx:id="cbTipoBusqueda" focusColor="#6dc36d" layoutX="36.0" layoutY="52.0" onAction="#actTipo" prefHeight="35.0" prefWidth="122.0" promptText="Tipo de Búsqueda" />
       <JFXButton fx:id="btnAgregar" layoutX="553.0" layoutY="438.0" onAction="#actAgregar" prefHeight="35.0" prefWidth="122.0" style="-fx-background-color: #6dc36d;" text="Agregar Cantón" />
-      <Label layoutX="36.0" layoutY="123.0" text="Cantones Registrados:">
+      <Label layoutX="36.0" layoutY="170.0" text="Cantones Registrados:">
          <font>
             <Font name="Candara" size="15.0" />
          </font>
       </Label>
-      <AnchorPane layoutX="36.0" layoutY="159.0" prefHeight="262.0" prefWidth="636.0" style="-fx-background-color: #6dc36d;">
+      <AnchorPane layoutX="36.0" layoutY="201.0" prefHeight="222.0" prefWidth="636.0" style="-fx-background-color: #6dc36d;">
          <children>
             <Label fx:id="lblInfo" alignment="CENTER" layoutX="33.0" layoutY="120.0" prefHeight="18.0" prefWidth="571.0" text="No hay datos para mostrar">
                <font>
                   <Font name="Candara" size="19.0" />
                </font>
             </Label>
-            <TableView fx:id="tableView" prefHeight="268.0" prefWidth="636.0">
+            <TableView fx:id="tableView" prefHeight="223.0" prefWidth="636.0">
               <columns>
                 <TableColumn prefWidth="75.0" text="C1" />
                 <TableColumn prefWidth="75.0" text="C2" />
@@ -37,5 +37,8 @@
          </children>
       </AnchorPane>
       <JFXComboBox fx:id="cbBusqueda" editable="true" focusColor="#6dc36d" layoutX="178.0" layoutY="52.0" prefHeight="35.0" prefWidth="352.0" />
+      <JFXComboBox fx:id="cbProvincia" layoutX="178.0" layoutY="117.0" prefHeight="35.0" prefWidth="352.0" />
+      <Label layoutX="39.0" layoutY="134.0" text="Buscar por Provincia:" />
+      <JFXButton fx:id="btnBuscarProvincia" layoutX="556.0" layoutY="117.0" onAction="#actBuscarProvincia" prefHeight="35.0" prefWidth="122.0" style="-fx-background-color: #6dc36d;" text="Filtrar" />
    </children>
 </AnchorPane>

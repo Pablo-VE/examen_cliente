@@ -24,6 +24,7 @@ import org.una.examen.cliente.dto.ProvinciaDTO;
 import org.una.examen.cliente.service.CantonService;
 import org.una.examen.cliente.service.ProvinciaService;
 import org.una.examen.cliente.util.AppContext;
+import org.una.examen.cliente.util.AreaYPoblacion;
 import org.una.examen.cliente.util.Mensaje;
 import org.una.examen.cliente.util.Respuesta;
 
@@ -52,6 +53,7 @@ public class CantonDetalleController implements Initializable {
     private CantonService cantonService = new CantonService();
     @FXML
     private JFXComboBox<ProvinciaDTO> cbProvincia;
+    private AreaYPoblacion ap = new AreaYPoblacion();
     /**
      * Initializes the controller class.
      */
@@ -88,7 +90,7 @@ public class CantonDetalleController implements Initializable {
         }else{
             if(modalidad.equals("Modificar")){
                 canton.setNombre(txtNombre.getText());
-                canton.setCodigo(3);
+                canton.setCodigo(canton.getCodigo());
                 canton.setProvincia(cbProvincia.getValue());
                 Respuesta respuesta = cantonService.modificar(canton.getId(), canton);
                 if(respuesta.getEstado()){
@@ -101,7 +103,9 @@ public class CantonDetalleController implements Initializable {
             }else{
                 if(modalidad.equals("Agregar")){
                     canton.setNombre(txtNombre.getText());
-                    canton.setCodigo(1);
+                    Respuesta res = cantonService.getAll();
+                    ArrayList<CantonDTO> cantones = (ArrayList<CantonDTO>)res.getResultado("Cantones");
+                    canton.setCodigo(ap.getCodigoNuevoCanton(cantones));
                     canton.setProvincia(cbProvincia.getValue());
                     Respuesta respuesta = cantonService.crear(canton);
                     if(respuesta.getEstado()){
