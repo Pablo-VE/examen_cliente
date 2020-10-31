@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" accessibleRole="BUTTON" prefHeight="293.0" prefWidth="455.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.una.examen.cliente.controller.DistritoDetalleController">
+   <children>
+      <ImageView accessibleRole="BUTTON" fitHeight="45.0" fitWidth="49.0" layoutX="400.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@recursos/eliminar.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="lblInfo" layoutX="14.0" layoutY="14.0" prefHeight="25.0" prefWidth="296.0" text="Información">
+         <font>
+            <Font name="Candara" size="20.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="txtNombre" focusColor="#6dc36d" layoutX="62.0" layoutY="160.0" prefHeight="45.0" prefWidth="342.0" promptText="Nombre del Distrito">
+         <font>
+            <Font name="Candara" size="16.0" />
+         </font>
+      </JFXTextField>
+      <JFXButton fx:id="btnGuardar" layoutX="309.0" layoutY="228.0" onAction="#actGuardar" prefHeight="35.0" prefWidth="95.0" style="-fx-background-color: #6dc36d;" text="Guardar" />
+      <JFXButton fx:id="btnCancelar" layoutX="62.0" layoutY="228.0" onAction="#actCancelar" prefHeight="35.0" prefWidth="95.0" style="-fx-background-color: #6dc36d;" text="Cancelar" />
+      <JFXButton fx:id="btnEliminar" buttonType="RAISED" layoutX="404.0" layoutY="14.0" onAction="#actEliminar" prefHeight="45.0" prefWidth="40.0" text=" ">
+         <font>
+            <Font size="1.0" />
+         </font>
+      </JFXButton>
+      <JFXComboBox fx:id="cbCanton" focusColor="#6dc36d" layoutX="62.0" layoutY="90.0" onAction="#actProvincia" prefHeight="45.0" prefWidth="342.0" promptText="Cantón" />
+   </children>
+</AnchorPane>
