@@ -250,6 +250,10 @@ public class TareasDetalleController implements Initializable {
             Mensaje.showAndWait(Alert.AlertType.WARNING, titulo, "Faltan datos por ingresar: nivel de urgencia");
             return false;
         }
+        if(dpFechaFinalizacion.getValue().isBefore(dpFechaInicio.getValue())){
+            Mensaje.showAndWait(Alert.AlertType.WARNING, titulo, "La fecha de finalización sucede antes que la fecha de finalización");
+            return false;
+        }
         return true;
     }
     

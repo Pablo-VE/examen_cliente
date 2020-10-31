@@ -29,6 +29,11 @@
                   <Image url="@recursos/wallpaper.jpg" />
                </image>
             </ImageView>
+            <ImageView fitHeight="271.0" fitWidth="338.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@recursos/LOGO-UNA.png" />
+               </image>
+            </ImageView>
          </children>
       </StackPane>
       <Button fx:id="btnVolver" layoutX="17.0" layoutY="591.0" mnemonicParsing="false" onAction="#actVolver" prefHeight="35.0" prefWidth="211.0" style="-fx-background-color: black;" text="Volver al menú principal" textFill="WHITE" />
@@ -51,5 +56,10 @@
             </ImageView>
          </graphic>
       </Button>
+      <Label layoutX="21.0" layoutY="567.0" text="Elaborado por: Pablo A. Venegas Elizondo">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
