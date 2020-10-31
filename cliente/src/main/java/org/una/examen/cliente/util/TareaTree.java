@@ -62,14 +62,15 @@ public class TareaTree extends HBox{
     
     public void crearEstado(){
         VBox estado = new VBox();
-        estado.setStyle(vbEstilo2());
+        estado.setStyle(Rangos.getInstance().colorTarea(tarea));
         estado.setPrefHeight(70);
         estado.setPrefWidth(200);
         estado.setAlignment(Pos.CENTER);
-        //setear color
         Label titulo = new Label();
         titulo.setText("Avance");
+        titulo.setStyle("-fx-font-weight: bold;");
         Label avance = new Label();
+        avance.setStyle("-fx-font-weight: bold;");
         avance.setText(String.valueOf(tarea.getPorcentajeAvance())+"%");
         estado.getChildren().add(titulo);
         estado.getChildren().add(avance);
@@ -120,8 +121,10 @@ public class TareaTree extends HBox{
         } catch (MalformedURLException ex) {
             Logger.getLogger(TareaTree.class.getName()).log(Level.SEVERE, null, ex);
         }
-        ImageView ivEditar = new ImageView(ima);
         
+        ImageView ivEditar = new ImageView(ima);
+        ivEditar.setFitHeight(30);
+        ivEditar.setFitWidth(30);
         ivEditar.setOnMouseClicked(event ->{
             try{
                 Stage stage = new Stage();

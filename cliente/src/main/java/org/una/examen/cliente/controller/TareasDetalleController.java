@@ -34,6 +34,7 @@ import org.una.examen.cliente.dto.ProyectoDTO;
 import org.una.examen.cliente.dto.TareaDTO;
 import org.una.examen.cliente.service.TareaService;
 import org.una.examen.cliente.util.AppContext;
+import org.una.examen.cliente.util.Formato;
 import org.una.examen.cliente.util.Mensaje;
 import org.una.examen.cliente.util.Respuesta;
 
@@ -87,9 +88,12 @@ public class TareasDetalleController implements Initializable {
     
     
     private String modalidadVista = "";
+    @FXML
+    private Button btnCancelar;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        Formato();
         initCBX();
         modalidadVista = (String) AppContext.getInstance().get("VistaProyecto");
         modalidad = (String) AppContext.getInstance().get("ModalidadTarea");
@@ -130,7 +134,12 @@ public class TareasDetalleController implements Initializable {
             nivelAvance.setValue(Double.valueOf(tarea.getPorcentajeAvance()));
             
         }
-    }    
+    }   
+    
+    public void Formato(){
+        txtNombre.setTextFormatter(Formato.getInstance().maxLengthFormat(20));
+        txtDescripcion.setTextFormatter(Formato.getInstance().maxLengthFormat(200));
+    }
     
     public void establecerPrioridad(){
         int urgencia = cbNivelImportancia.getValue()*cbNivelUrgencia.getValue();
@@ -276,6 +285,12 @@ public class TareasDetalleController implements Initializable {
     @FXML
     private void actSelFechaFinalizacion(ActionEvent event) {
         setFechaFinalizacion();
+    }
+
+    @FXML
+    private void actCancelar(ActionEvent event) {
+        Stage stage = (Stage) btnCancelar.getScene().getWindow();
+        stage.close();
     }
     
 }

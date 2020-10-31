@@ -37,11 +37,21 @@ public class ProyectosTreeController implements Initializable {
     /**
      * Initializes the controller class.
      */
+    private String modalidad="";
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         vbPadre.setStyle(estilosPrincipal());
         AppContext.getInstance().set("ControllerProyecto", this);
-        cargarTodos();
+        modalidad=(String) AppContext.getInstance().get("ModalidadProyectosTree");
+        if(!modalidad.equals("Ver")){
+            List<ProyectoDTO> proyectos = new ArrayList<ProyectoDTO>();
+            proyectos = (List<ProyectoDTO>) AppContext.getInstance().get("ProyectosFiltrados");
+            System.out.println(proyectos.size());
+            cargarVista(proyectos);
+        }else{
+            cargarTodos();
+        }
         // TODO
     } 
     

@@ -68,14 +68,15 @@ public class ProyectoTreeBig extends VBox {
         
         Label nombre = new Label();
         nombre.setText(String.valueOf(proyecto.getId())+". "+proyecto.getNombre());
-        nombre.setPrefWidth(585);
-        //set estilo al label
+        nombre.setPrefWidth(565);
+        nombre.setStyle("-fx-font-weight: bold;");
         titulo.getChildren().add(nombre);  
         crearBotones();
     }
     
     public void crearBotones(){
         Button btnAgregarTarea = new Button();
+        btnAgregarTarea.setStyle(estilosBoton());
         btnAgregarTarea.setText("Agregar tarea");
         btnAgregarTarea.setOnMouseClicked(event ->{
             try{
@@ -96,13 +97,23 @@ public class ProyectoTreeBig extends VBox {
             };
         });
         Button btnModificarProyecto = new Button();
+        btnModificarProyecto.setStyle(estilosBoton());
         btnModificarProyecto.setText("Modificar proyecto");
         btnModificarProyecto.setOnMouseClicked(event ->{
             try{
-                actModificarProyecto();
-            }catch(Exception ex){
+                Stage stage = new Stage();
+                AppContext.getInstance().set("Proyecto", proyecto);
+                Parent root = FXMLLoader.load(App.class.getResource("ProyectoEditar" + ".fxml"));
+                stage.setScene(new Scene(root));
+                stage.setTitle("Modificación de proyecto");
+                stage.initModality(Modality.WINDOW_MODAL);
+                stage.initOwner(
+                    ((Node)event.getSource()).getScene().getWindow() );
+                stage.show();
+            }catch(IOException ex){
                 System.out.println(ex.getMessage());
-            }
+                Mensaje.showAndWait(Alert.AlertType.ERROR, "Opps :c", "Se ha producido un error inesperado en la aplicación");
+            };
         });
         
         //set estilo a los botones
@@ -129,7 +140,11 @@ public class ProyectoTreeBig extends VBox {
                 "   -fx-spacing: 15;" ;
     }
     
-    
+    public String estilosBoton(){
+        return  "-fx-background-color: #000000;"+
+                "-fx-font-size: 10pt;"+
+                "-fx-text-fill: #ffffff;";
+    }
     
     
     
