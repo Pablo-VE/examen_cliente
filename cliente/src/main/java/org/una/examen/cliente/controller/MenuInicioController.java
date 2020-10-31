@@ -60,6 +60,18 @@ public class MenuInicioController implements Initializable {
 
     @FXML
     private void actProvincias(ActionEvent event) {
+        try{
+            Stage stageCerrar = (Stage) btnProvincias.getScene().getWindow();
+            stageCerrar.close();
+            Stage stage = new Stage();
+            Parent root = FXMLLoader.load(App.class.getResource("ProvinciasPrincipal" + ".fxml"));
+            Scene scene = new Scene(root);
+            stage.setTitle("Gestión de provincias");
+            stage.setScene(scene);
+            stage.show();
+        }catch(IOException ex){
+            Mensaje.showAndWait(Alert.AlertType.ERROR, "Opps :c", "Ocurrió un error, por favor intenta más tarde");
+        }
     }
 
     @FXML

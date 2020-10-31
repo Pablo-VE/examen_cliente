@@ -3,11 +3,31 @@
  * @author Pablo-VE
  */
 .text-field {
-       -fx-font-size: 12pt;
+      -fx-font-size: 11pt;
       -fx-text-fill: #ffffff;
+      -fx-prompt-text-fill: #ffffff;
 }
 
 .text-area {
-       -fx-font-size: 12pt;
+      -fx-font-size: 11pt;
       -fx-text-fill: #ffffff;
+      -fx-prompt-text-fill: #ffffff; 
+}
+
+.input .text-field {
+      -fx-prompt-text-fill: #ffffff; 
+}
+
+.combo-box {
+       -fx-text-fill: #ffffff;
+       -fx-prompt-text-fill: #ffffff;  
+}
+
+.combo-box .list-cell{
+        -fx-text-fill: #ff0000;
+        
+}
+
+.date-picker .text-field {
+    -fx-text-fill: black;
 }

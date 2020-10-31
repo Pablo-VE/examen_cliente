@@ -34,6 +34,7 @@ import org.una.examen.cliente.dto.ProyectoDTO;
 import org.una.examen.cliente.dto.TareaDTO;
 import org.una.examen.cliente.service.TareaService;
 import org.una.examen.cliente.util.AppContext;
+import org.una.examen.cliente.util.Formato;
 import org.una.examen.cliente.util.Mensaje;
 import org.una.examen.cliente.util.Respuesta;
 
@@ -87,9 +88,12 @@ public class TareasDetalleController implements Initializable {
     
     
     private String modalidadVista = "";
+    @FXML
+    private Button btnCancelar;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        Formato();
         initCBX();
         modalidadVista = (String) AppContext.getInstance().get("VistaProyecto");
         modalidad = (String) AppContext.getInstance().get("ModalidadTarea");
@@ -106,6 +110,7 @@ public class TareasDetalleController implements Initializable {
             lbTitulo.setText("Registro Tarea - Proyecto "+proyecto.getNombre());
         }else{
             tarea = (TareaDTO) AppContext.getInstance().get("TareaEnCuestion");
+            proyecto=tarea.getProyecto();
             lbTitulo.setText("Tarea "+tarea.getNombre()+" - Proyecto "+proyecto.getNombre());
             txtNombre.setText(tarea.getNombre());
             if(tarea.getDescipcion()!=null){
@@ -117,6 +122,9 @@ public class TareasDetalleController implements Initializable {
             instant = tarea.getFechaFinalizacion().toInstant();
             dpFechaFinalizacion.setValue(instant.atZone(defaultZoneId).toLocalDate());
             
+            setFechaInicio();
+            setFechaFinalizacion();
+            
             lbFechaRegistro.setText(formatter.format(tarea.getFechaRegistro()));
             lbFechaModificacion.setText(formatter.format(tarea.getFechaModificacion()));
             
@@ -126,7 +134,12 @@ public class TareasDetalleController implements Initializable {
             nivelAvance.setValue(Double.valueOf(tarea.getPorcentajeAvance()));
             
         }
-    }    
+    }   
+    
+    public void Formato(){
+        txtNombre.setTextFormatter(Formato.getInstance().maxLengthFormat(50));
+        txtDescripcion.setTextFormatter(Formato.getInstance().maxLengthFormat(200));
+    }
     
     public void establecerPrioridad(){
         int urgencia = cbNivelImportancia.getValue()*cbNivelUrgencia.getValue();
@@ -165,6 +178,10 @@ public class TareasDetalleController implements Initializable {
                 Respuesta res= tareaService.modificar(tarea.getId(), tarea);
                 if(res.getEstado()){
                     tarea = (TareaDTO) res.getResultado("Tarea");
+                    if(modalidadVista.equals("TreeView")){
+                        ProyectosTreeController proController = (ProyectosTreeController) AppContext.getInstance().get("ControllerProyecto");
+                        proController.cargarTodos();
+                    }
                     Mensaje.showAndWait(Alert.AlertType.INFORMATION, "Modificación de tarea", "La tarea fue modificada con éxito");
                     Stage stage = (Stage) btnGuardar.getScene().getWindow();
                     stage.close();
@@ -179,6 +196,9 @@ public class TareasDetalleController implements Initializable {
                         if(modalidadVista.equals("Creacion")){
                             ProyectoDetalleController proController = (ProyectoDetalleController) AppContext.getInstance().get("ControllerProyecto");
                             proController.cargarTabla();
+                        }else{
+                            ProyectosTreeController proController = (ProyectosTreeController) AppContext.getInstance().get("ControllerProyecto");
+                            proController.cargarTodos();
                         }
                         Mensaje.showAndWait(Alert.AlertType.INFORMATION, "Registro de tarea", "La tarea fue registrada con éxito");
                         Stage stage = (Stage) btnGuardar.getScene().getWindow();
@@ -241,6 +261,10 @@ public class TareasDetalleController implements Initializable {
 
     @FXML
     private void actSelFechaInicio(ActionEvent event) {
+        setFechaInicio();
+    }
+
+    public void setFechaInicio(){
         Calendar dateCalendar = Calendar.getInstance();
         String fecha[]=dpFechaInicio.getValue().toString().split("-");
         dateCalendar.set(Calendar.YEAR,Integer.valueOf(fecha[0]));
@@ -248,15 +272,25 @@ public class TareasDetalleController implements Initializable {
         dateCalendar.set(Calendar.DAY_OF_MONTH, Integer.valueOf(fecha[2]));
         fechaInicioGuardar=dateCalendar.getTime();
     }
-
-    @FXML
-    private void actSelFechaFinalizacion(ActionEvent event) {
+    
+    public void setFechaFinalizacion(){
         Calendar dateCalendar = Calendar.getInstance();
         String fecha[]=dpFechaFinalizacion.getValue().toString().split("-");
         dateCalendar.set(Calendar.YEAR,Integer.valueOf(fecha[0]));
         dateCalendar.set(Calendar.MONTH, Integer.valueOf(fecha[1])-1);
         dateCalendar.set(Calendar.DAY_OF_MONTH, Integer.valueOf(fecha[2]));
         fechaFinalizacionGuardar=dateCalendar.getTime();
+    }
+    
+    @FXML
+    private void actSelFechaFinalizacion(ActionEvent event) {
+        setFechaFinalizacion();
+    }
+
+    @FXML
+    private void actCancelar(ActionEvent event) {
+        Stage stage = (Stage) btnCancelar.getScene().getWindow();
+        stage.close();
     }
     
 }

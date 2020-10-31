@@ -37,6 +37,7 @@ import org.una.examen.cliente.dto.TareaDTO;
 import org.una.examen.cliente.service.ProyectoService;
 import org.una.examen.cliente.service.TareaService;
 import org.una.examen.cliente.util.AppContext;
+import org.una.examen.cliente.util.Formato;
 import org.una.examen.cliente.util.Mensaje;
 import org.una.examen.cliente.util.Respuesta;
 
@@ -82,6 +83,8 @@ public class ProyectoDetalleController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        Formato();
+        btnListo.setText("Salir");
         modalidad=(String) AppContext.getInstance().get("ModalidadProyecto");
         cargarTabla();
         if(modalidad.equals("Agregar")){
@@ -89,6 +92,8 @@ public class ProyectoDetalleController implements Initializable {
             btnAgregarTarea.setDisable(true);
             btnAgregarTarea.setVisible(false);
             proyecto = new ProyectoDTO();
+            btnListo.setDisable(true);
+            btnListo.setVisible(false);
             lbTitulo.setText("CREACIÓN DE PROYECTO");
         }else{
             creado=true;
@@ -96,6 +101,11 @@ public class ProyectoDetalleController implements Initializable {
         // TODO
     }    
 
+    public void Formato(){
+        txtNombre.setTextFormatter(Formato.getInstance().maxLengthFormat(50));
+        txtResponsable.setTextFormatter(Formato.getInstance().maxLengthFormat(50));
+        txtDescripcion.setTextFormatter(Formato.getInstance().maxLengthFormat(200));
+    }
     
     
     @FXML
@@ -124,6 +134,8 @@ public class ProyectoDetalleController implements Initializable {
                     txtNombre.setDisable(true);
                     txtDescripcion.setDisable(true);
                     txtResponsable.setDisable(true);
+                    btnListo.setDisable(false);
+                    btnListo.setVisible(true);
                    
                 }else{
                     Mensaje.showAndWait(Alert.AlertType.INFORMATION, "Registro de proyecto", "Ocurrió un error al registrar su proyecto");
@@ -243,6 +255,9 @@ public class ProyectoDetalleController implements Initializable {
 
     @FXML
     private void actListo(ActionEvent event) {
+        Mensaje.showAndWait(Alert.AlertType.INFORMATION, "Registro de Proyecto", "Su proyecto ha sido creado con éxito");
+        ProyectosPrincipalController principalController = (ProyectosPrincipalController) AppContext.getInstance().get("ControllerPrincipal");
+        principalController.verProyectos();
     }
     
 }
