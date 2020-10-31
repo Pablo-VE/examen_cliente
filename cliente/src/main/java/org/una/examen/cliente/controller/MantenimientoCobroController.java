@@ -11,6 +11,7 @@ import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -190,9 +191,6 @@ public class MantenimientoCobroController implements Initializable {
         }
     }
     
-    
-
-
     @FXML
     private void cbxTipoServicio(ActionEvent event) {
     }
@@ -244,26 +242,21 @@ public class MantenimientoCobroController implements Initializable {
                     Mensaje.showAndWait(Alert.AlertType.INFORMATION, "Registro una membresia", "Se ha registrado una membresia correctamente");
                     int cant=calcularCantidadCobros();
                     
+                    Date d = new Date();
                     for(int i=0; i<cant; i++){
-//                    CobroPendienteDTO cobroPendiente = new CobroPendienteDTO();
-//                     cobroPendiente.setMembresia(membresiaEnCuestion);
-//                    cobroPendiente.setEstado(true);
-//                    cobroPendiente.setAno(Calendar.YEAR);
-//                    cobroPendiente.setFechaVencimiento(calcularFechaVenceCobro());
-//                    cobroPendiente.setMonto(calcularMonto(membresiaEnCuestion.getMonto()));
-//                    cobroPendiente.setPeriodo(1);
-//
-//                    Respuesta respuesta1=cobroPendienteService.crear(cobroPendiente);
-//                    if(respuesta1.getEstado()){
-//                        CobroPendienteEnCuestion=(CobroPendienteDTO) respuesta.getResultado("CobroPendiente");
-//                         Mensaje.showAndWait(Alert.AlertType.INFORMATION, "Registro de un cobro", "Se ha registrado un cobro correctamente");
-//                    }
-//                    else{
-//                        Mensaje.showAndWait(Alert.AlertType.ERROR, "No se registro de un cobro", respuesta.getMensaje());
-//                    } 
-                    }
-                        
+                        CobroPendienteDTO cobroPendiente = new CobroPendienteDTO();
+                        cobroPendiente.setMembresia(membresiaEnCuestion);
+                        cobroPendiente.setEstado(true);
+                        cobroPendiente.setAno(2020);
+                        cobroPendiente.setFechaVencimiento(getFechaF());
+                        cobroPendiente.setMonto(calcularMontoCobro(cant));
+                        cobroPendiente.setPeriodo(perioridad);
 
+                        Respuesta respuesta1=cobroPendienteService.crear(cobroPendiente);
+                        if(respuesta1.getEstado()){
+                            CobroPendienteEnCuestion=(CobroPendienteDTO) respuesta.getResultado("CobroPendiente");
+                        }
+                    }     
                 }else{
                     Mensaje.showAndWait(Alert.AlertType.ERROR, "No se registro de una membresia", respuesta.getMensaje());
                 }
@@ -271,6 +264,11 @@ public class MantenimientoCobroController implements Initializable {
                
             
         }
+    }
+    public static Date getFechaF() {
+        Calendar calendar = Calendar.getInstance();
+        Date fechaSum = calendar.getTime();
+        return fechaSum;
     }
     
     public float calcularMonto(float montoMembresia){
@@ -284,57 +282,7 @@ public class MantenimientoCobroController implements Initializable {
         return cal;
     }
     
-    Date calcularFechaVenceCobro(){
-        Date date = new Date();
-        Calendar fechaAux;//tope
-        fechaAux = toCalendar(fechaVenceAux);
-        
-        if(perioridad==1){//mensual
-            if(fechaAux.before(fechaActual)){
-                fechaAux.add(Calendar.MONTH,1);
-                date.setTime(fechaAux.getTimeInMillis());
-            }  
-        }else{
-            if(perioridad==2){//bi
-                 if(fechaAux.before(fechaActual)){
-                    fechaAux.add(Calendar.MONTH,2);
-                    date.setTime(fechaAux.getTimeInMillis());
-                }
-            }else{
-                if(perioridad==3){//tri
-                    if(fechaAux.before(fechaActual)){
-                        fechaAux.add(Calendar.MONTH,3);
-                        date.setTime(fechaAux.getTimeInMillis()); 
-                }
-                }else{
-                    if(perioridad==4){//cuatri
-                        if(fechaAux.before(fechaActual)){
-                            fechaAux.add(Calendar.MONTH,4);
-                            date.setTime(fechaAux.getTimeInMillis());
-                        }
-                    }else{
-                        if(perioridad==5){//semestral
-                            if(fechaAux.before(fechaActual)){
-                                fechaAux.add(Calendar.MONTH,6);
-                                date.setTime(fechaAux.getTimeInMillis());
-                            }
-                        }else{
-                            if(perioridad==6){//anual
-                               if(fechaAux.before(fechaActual)){
-                                    fechaAux.add(Calendar.YEAR,1);
-                                    date.setTime(fechaAux.getTimeInMillis());
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-       }
-        return date;
-    }
-    
-    
-    
+
     @JsonbDateFormat(value = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
     private Date fechaVence;
     @FXML
@@ -347,12 +295,7 @@ public class MantenimientoCobroController implements Initializable {
         dateCalendar.set(Calendar.MONTH, Integer.valueOf(fecha[1])-1);
         dateCalendar.set(Calendar.DAY_OF_MONTH, Integer.valueOf(fecha[2]));
         fechaVence=dateCalendar.getTime();
-        fechaVenceAux=fechaVence;
-        System.out.println(calcularCantidadCobros());
-        System.out.println(calcularFechaVenceCobro());
-        
-
-        
+        fechaVenceAux=fechaVence;  
     }
 
     
@@ -422,10 +365,17 @@ public class MantenimientoCobroController implements Initializable {
         estado=false;
     }
     
+    float calcularMontoCobro(float cant){
+        float montoCobro=0;
+        float monto = Float.valueOf(txtMonto.getText());
+        montoCobro = monto/cant;
+        return montoCobro;
+    }
+    
     int calcularCantidadCobros(){
         boolean bandera=true;
         Calendar calActual = Calendar.getInstance();
-        Calendar cal = toCalendar(fechaVenceAux);
+        Calendar cal = toCalendar(fechaVenceAux);//tope
         
         if(perioridad == 1){
             while (bandera) {
@@ -489,6 +439,5 @@ public class MantenimientoCobroController implements Initializable {
         }
         return contadorMontoPagos;
     }
-    
-    
+   
 }
