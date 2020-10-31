@@ -20,7 +20,7 @@ import org.una.examen.cliente.util.Respuesta;
 public class TipoServicioService {
         public Respuesta crear(TipoServicioDTO tipoServicio){
         try{
-            ConexionServidor conexion = new ConexionServidor(1,"tipoServicio/crear");
+            ConexionServidor conexion = new ConexionServidor(3,"tipoServicio/crear");
             conexion.post(tipoServicio);
             if(conexion.isError()){
                 System.out.println("Error creacion del tipo servicio: "+conexion.getError());
@@ -39,7 +39,7 @@ public class TipoServicioService {
         try{
             Map<String, Object> parametros = new HashMap<>();
             parametros.put("id", id);
-            ConexionServidor conexion = new ConexionServidor(1,"tipoServicio/modificar", "/{id}", parametros);
+            ConexionServidor conexion = new ConexionServidor(3,"tipoServicio/modificar", "/{id}", parametros);
             conexion.put(tipoServicio);
             if(conexion.isError()){
                 return new Respuesta(false, conexion.getError(), "No se pudo modificar el tipo servicio");
@@ -56,7 +56,7 @@ public class TipoServicioService {
         try{
             Map<String, Object> parametros = new HashMap<>();
             parametros.put("id", id);
-            ConexionServidor conexion = new ConexionServidor(1,"tipoServicio", "/{id}", parametros);
+            ConexionServidor conexion = new ConexionServidor(3,"tipoServicio", "/{id}", parametros);
             conexion.get();
             if(conexion.isError()){
                 return new Respuesta(false, conexion.getError(), "Error al buscar del tipo servicio por su id");
@@ -70,7 +70,7 @@ public class TipoServicioService {
     
     public Respuesta getAll(){
         try{
-            ConexionServidor conexion = new ConexionServidor(1,"tipoServicio/");
+            ConexionServidor conexion = new ConexionServidor(3,"tipoServicio/");
             conexion.get();
             if(conexion.isError()){
                 return new Respuesta(false, conexion.getError(), "Error al buscar todos los tipos servicios");
