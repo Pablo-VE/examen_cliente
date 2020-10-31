@@ -135,6 +135,7 @@ public class RangosController implements Initializable {
                     private final Button modificar = new Button("Modificar");
 
                     {
+                        modificar.setStyle(estilosBoton());
                        modificar.setOnAction((ActionEvent event) -> {
                             try{
                                 RangoColor data1 = getTableView().getItems().get(getIndex());
@@ -160,6 +161,7 @@ public class RangosController implements Initializable {
                     private final Button eliminar = new Button("Eliminar");
 
                     {
+                        eliminar.setStyle(estilosBoton());
                        eliminar.setOnAction((ActionEvent event) -> {
                             
                                 RangoColor data1 = getTableView().getItems().get(getIndex());
@@ -172,6 +174,10 @@ public class RangosController implements Initializable {
                     
                     
                     HBox pane = new HBox(modificar, eliminar); 
+                    {
+                        pane.setAlignment(Pos.CENTER);
+                        pane.setSpacing(5);
+                    }
                     
                     @Override
                     public void updateItem(Void item, boolean empty) {
@@ -192,6 +198,12 @@ public class RangosController implements Initializable {
 
         tvRangos.getColumns().add(colBtn);
 
+    }
+    
+    public String estilosBoton(){
+        return  "-fx-background-color: #000000;"+
+                "-fx-font-size: 10pt;"+
+                "-fx-text-fill: #ffffff;";
     }
     
 }

@@ -11,6 +11,7 @@
 .text-area {
       -fx-font-size: 11pt;
       -fx-text-fill: #ffffff;
+      -fx-prompt-text-fill: #ffffff; 
 }
 
 .input .text-field {

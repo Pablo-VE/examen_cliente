@@ -68,7 +68,9 @@ public class TareaTree extends HBox{
         estado.setAlignment(Pos.CENTER);
         Label titulo = new Label();
         titulo.setText("Avance");
+        titulo.setStyle("-fx-font-weight: bold;");
         Label avance = new Label();
+        avance.setStyle("-fx-font-weight: bold;");
         avance.setText(String.valueOf(tarea.getPorcentajeAvance())+"%");
         estado.getChildren().add(titulo);
         estado.getChildren().add(avance);

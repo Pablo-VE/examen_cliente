@@ -13,10 +13,11 @@
 <AnchorPane id="AnchorPane" prefHeight="645.0" prefWidth="977.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.una.examen.cliente.controller.ProyectosPrincipalController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="648.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="242.0" />
-      <JFXTextField fx:id="txtBusqueda" focusColor="RED" labelFloat="true" layoutX="16.0" layoutY="60.0" prefHeight="25.0" prefWidth="211.0" promptText="¿Qué quieres buscar?" unFocusColor="BLACK" />
-      <Button fx:id="actBuscarNombre" layoutX="16.0" layoutY="101.0" mnemonicParsing="false" onAction="#actBuscarNombre" prefHeight="35.0" prefWidth="211.0" style="-fx-background-color: black;" text="Buscar por nombre del proyecto" textFill="WHITE" />
-      <Button fx:id="btnBuscarProyecto" layoutX="16.0" layoutY="145.0" mnemonicParsing="false" onAction="#actBuscarProyecto" prefHeight="35.0" prefWidth="211.0" style="-fx-background-color: black;" text="Buscar por responsable del proyecto" textFill="WHITE" />
-      <Label fx:id="lbTitulo" layoutX="16.0" layoutY="14.0" text="GESTIÓN DE PROYECTOS" textFill="YELLOW">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="YELLOW" height="50.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="242.0" />
+      <JFXTextField fx:id="txtBusqueda" focusColor="RED" labelFloat="true" layoutX="16.0" layoutY="70.0" prefHeight="25.0" prefWidth="211.0" promptText="¿Qué quieres buscar?" unFocusColor="BLACK" />
+      <Button fx:id="actBuscarNombre" layoutX="16.0" layoutY="111.0" mnemonicParsing="false" onAction="#actBuscarNombre" prefHeight="35.0" prefWidth="211.0" style="-fx-background-color: black;" text="Buscar por nombre del proyecto" textFill="WHITE" />
+      <Button fx:id="btnBuscarProyecto" layoutX="16.0" layoutY="155.0" mnemonicParsing="false" onAction="#actBuscarProyecto" prefHeight="35.0" prefWidth="211.0" style="-fx-background-color: black;" text="Buscar por responsable del proyecto" textFill="WHITE" />
+      <Label fx:id="lbTitulo" alignment="CENTER" layoutX="16.0" layoutY="12.0" text="GESTIÓN DE PROYECTOS">
          <font>
             <Font name="System Bold" size="17.9" />
          </font>
@@ -31,17 +32,17 @@
          </children>
       </StackPane>
       <Button fx:id="btnVolver" layoutX="17.0" layoutY="591.0" mnemonicParsing="false" onAction="#actVolver" prefHeight="35.0" prefWidth="211.0" style="-fx-background-color: black;" text="Volver al menú principal" textFill="WHITE" />
-      <Button fx:id="btnCrearProyecto" layoutX="17.0" layoutY="205.0" mnemonicParsing="false" onAction="#actCrearProyecto" prefHeight="56.0" prefWidth="211.0" style="-fx-background-color: yellow;" text="CREAR PROYECTO">
+      <Button fx:id="btnCrearProyecto" layoutX="17.0" layoutY="215.0" mnemonicParsing="false" onAction="#actCrearProyecto" prefHeight="56.0" prefWidth="211.0" style="-fx-background-color: yellow;" text="CREAR PROYECTO">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </Button>
-      <Button fx:id="btnVerProyectos" layoutX="16.0" layoutY="279.0" mnemonicParsing="false" onAction="#actVerProyectos" prefHeight="35.0" prefWidth="211.0" style="-fx-background-color: yellow;" text="Ver todos los proyectos">
+      <Button fx:id="btnVerProyectos" layoutX="16.0" layoutY="289.0" mnemonicParsing="false" onAction="#actVerProyectos" prefHeight="35.0" prefWidth="211.0" style="-fx-background-color: yellow;" text="Ver todos los proyectos">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Button>
-      <Button fx:id="btnConfigurarRangos" layoutX="17.0" layoutY="339.0" mnemonicParsing="false" onAction="#actConfigurarRangos" prefHeight="44.0" prefWidth="211.0" style="-fx-background-color: black;" text="Configurar rangos y colores" textFill="WHITE">
+      <Button fx:id="btnConfigurarRangos" layoutX="17.0" layoutY="349.0" mnemonicParsing="false" onAction="#actConfigurarRangos" prefHeight="44.0" prefWidth="211.0" style="-fx-background-color: black;" text="Configurar rangos y colores" textFill="WHITE">
          <graphic>
             <ImageView fitHeight="28.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                <image>

@@ -69,7 +69,7 @@ public class ProyectoTreeBig extends VBox {
         Label nombre = new Label();
         nombre.setText(String.valueOf(proyecto.getId())+". "+proyecto.getNombre());
         nombre.setPrefWidth(565);
-        //set estilo al label
+        nombre.setStyle("-fx-font-weight: bold;");
         titulo.getChildren().add(nombre);  
         crearBotones();
     }
