@@ -137,7 +137,7 @@ public class TareasDetalleController implements Initializable {
     }   
     
     public void Formato(){
-        txtNombre.setTextFormatter(Formato.getInstance().maxLengthFormat(20));
+        txtNombre.setTextFormatter(Formato.getInstance().maxLengthFormat(50));
         txtDescripcion.setTextFormatter(Formato.getInstance().maxLengthFormat(200));
     }
     
@@ -248,6 +248,10 @@ public class TareasDetalleController implements Initializable {
         }
         if(cbNivelUrgencia.getValue()==null){
             Mensaje.showAndWait(Alert.AlertType.WARNING, titulo, "Faltan datos por ingresar: nivel de urgencia");
+            return false;
+        }
+        if(dpFechaFinalizacion.getValue().isBefore(dpFechaInicio.getValue())){
+            Mensaje.showAndWait(Alert.AlertType.WARNING, titulo, "La fecha de finalización sucede antes que la fecha de inicio");
             return false;
         }
         return true;

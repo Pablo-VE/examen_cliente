@@ -20,8 +20,7 @@
 
 .combo-box {
        -fx-text-fill: #ffffff;
-       -fx-prompt-text-fill: #ffffff;
-       
+       -fx-prompt-text-fill: #ffffff;  
 }
 
 .combo-box .list-cell{

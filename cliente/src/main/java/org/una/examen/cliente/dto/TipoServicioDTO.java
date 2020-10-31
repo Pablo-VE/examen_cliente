@@ -62,7 +62,9 @@ public class TipoServicioDTO {
         this.cliente=cliente;
     }
     
-    
+    public String toString(){
+        return nombre;
+    }
     
     
     

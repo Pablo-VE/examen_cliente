@@ -20,7 +20,7 @@ import org.una.examen.cliente.util.Respuesta;
 public class ClienteService {
     public Respuesta crear(ClienteDTO cliente){
         try{
-            ConexionServidor conexion = new ConexionServidor(1,"clientes/crear");
+            ConexionServidor conexion = new ConexionServidor(3,"clientes/crear");
             conexion.post(cliente);
             if(conexion.isError()){
                 System.out.println("Error creacion del cliente: "+conexion.getError());
@@ -39,7 +39,7 @@ public class ClienteService {
         try{
             Map<String, Object> parametros = new HashMap<>();
             parametros.put("id", id);
-            ConexionServidor conexion = new ConexionServidor(1,"clientes/modificar", "/{id}", parametros);
+            ConexionServidor conexion = new ConexionServidor(3,"clientes/modificar", "/{id}", parametros);
             conexion.put(cliente);
             if(conexion.isError()){
                 return new Respuesta(false, conexion.getError(), "No se pudo modificar el cliente");
@@ -56,7 +56,7 @@ public class ClienteService {
         try{
             Map<String, Object> parametros = new HashMap<>();
             parametros.put("id", id);
-            ConexionServidor conexion = new ConexionServidor(1,"clientes", "/{id}", parametros);
+            ConexionServidor conexion = new ConexionServidor(3,"clientes", "/{id}", parametros);
             conexion.get();
             if(conexion.isError()){
                 return new Respuesta(false, conexion.getError(), "Error al buscar el cliente por su id");
@@ -70,7 +70,7 @@ public class ClienteService {
     
     public Respuesta getAll(){
         try{
-            ConexionServidor conexion = new ConexionServidor(1,"clientes/");
+            ConexionServidor conexion = new ConexionServidor(3,"clientes/");
             conexion.get();
             if(conexion.isError()){
                 return new Respuesta(false, conexion.getError(), "Error al buscar todos los proyectos");
@@ -86,7 +86,7 @@ public class ClienteService {
         try{
             Map<String, Object> parametros = new HashMap<>();
             parametros.put("term", nombre);
-            ConexionServidor conexion = new ConexionServidor(1,"clientes/list/nombre", "/{term}", parametros);
+            ConexionServidor conexion = new ConexionServidor(3,"clientes/list/nombre", "/{term}", parametros);
             conexion.get();
             if(conexion.isError()){
                 return new Respuesta(false, conexion.getError(), "Error al buscar los clientes por el nombre");
@@ -98,14 +98,5 @@ public class ClienteService {
         }
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+   
 }
