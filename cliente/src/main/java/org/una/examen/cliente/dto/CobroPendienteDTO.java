@@ -60,7 +60,7 @@ public class CobroPendienteDTO {
         this.periodo=periodo;
     }
     
-    public double getMonto(){
+    public float getMonto(){
         return monto;
     }
     public void setMonto(float  monto){
