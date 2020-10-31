@@ -136,21 +136,6 @@ public class MantenimientoCobroController implements Initializable {
         }
     }
 
-    
-        
-    @FXML
-    private void actGuardar(ActionEvent event) {   
-    }
-
-
-    @FXML
-    private void cbxCliente(ActionEvent event) {
-    }
-
-    
-    
-
-
     @FXML
     private void cbxActMantenimiento(ActionEvent event) {
         
@@ -163,7 +148,13 @@ public class MantenimientoCobroController implements Initializable {
             anchorCobro.setVisible(true);
             imaMantenimiento.setVisible(false);
             
-            ArrayList opn = new ArrayList();
+            cargarPerioridad();
+            cargarClientesCbx();
+            cargarMembresiasCbx();      
+        }
+    }
+    void cargarPerioridad(){
+        ArrayList opn = new ArrayList();
             opn.add("Mensual");
             opn.add("Bimensual");
             opn.add("Trimensual");
@@ -172,23 +163,24 @@ public class MantenimientoCobroController implements Initializable {
             opn.add("Anual");
             ObservableList items = FXCollections.observableArrayList(opn);   
             cbxPerioridad.setItems(items);
-           
-            ArrayList<ClienteDTO> clientes = new ArrayList<ClienteDTO>();
+    }
+    void cargarClientesCbx(){
+        ArrayList<ClienteDTO> clientes = new ArrayList<ClienteDTO>();
             Respuesta respuesta = clienteService.getAll();
             if(respuesta.getEstado()==true){
                 clientes = (ArrayList<ClienteDTO>) respuesta.getResultado("Clientes");
             }
             ObservableList items2 = FXCollections.observableArrayList(clientes);   
             cbxCliente.setItems(items2);
-            
-            ArrayList<TipoServicioDTO> tipoServicio = new ArrayList<TipoServicioDTO>();
+    }
+    void cargarMembresiasCbx(){
+        ArrayList<TipoServicioDTO> tipoServicio = new ArrayList<TipoServicioDTO>();
             Respuesta respuesta2 = tipoServicioService.getAll();
             if(respuesta2.getEstado()==true){
                 tipoServicio = (ArrayList<TipoServicioDTO>) respuesta2.getResultado("TiposServicios");
             }
             ObservableList items3 = FXCollections.observableArrayList(tipoServicio);   
             cbxTipoServicio.setItems(items3);
-        }
     }
     
     @FXML
@@ -237,32 +229,30 @@ public class MantenimientoCobroController implements Initializable {
             membresiaEnCuestion.setFechaVenceMembresia(fechaVence);
             membresiaEnCuestion.setEstado(estado);
             Respuesta respuesta=membresiaService.crear(membresiaEnCuestion);
-                if(respuesta.getEstado()){
-                    membresiaEnCuestion = (MembresiaDTO)respuesta.getResultado("Membresia");
-                    Mensaje.showAndWait(Alert.AlertType.INFORMATION, "Registro una membresia", "Se ha registrado una membresia correctamente");
-                    int cant=calcularCantidadCobros();
-                    
-                    Date d = new Date();
-                    for(int i=0; i<cant; i++){
-                        CobroPendienteDTO cobroPendiente = new CobroPendienteDTO();
-                        cobroPendiente.setMembresia(membresiaEnCuestion);
-                        cobroPendiente.setEstado(true);
-                        cobroPendiente.setAno(2020);
-                        cobroPendiente.setFechaVencimiento(getFechaF());
-                        cobroPendiente.setMonto(calcularMontoCobro(cant));
-                        cobroPendiente.setPeriodo(perioridad);
+            if(respuesta.getEstado()){
+                membresiaEnCuestion = (MembresiaDTO)respuesta.getResultado("Membresia");
+                Mensaje.showAndWait(Alert.AlertType.INFORMATION, "Registro una membresia", "Se ha registrado una membresia correctamente");
+                int cant=calcularCantidadCobros();
 
-                        Respuesta respuesta1=cobroPendienteService.crear(cobroPendiente);
-                        if(respuesta1.getEstado()){
-                            CobroPendienteEnCuestion=(CobroPendienteDTO) respuesta.getResultado("CobroPendiente");
-                        }
-                    }     
-                }else{
-                    Mensaje.showAndWait(Alert.AlertType.ERROR, "No se registro de una membresia", respuesta.getMensaje());
-                }
-           
-               
-            
+                Date d = new Date();
+                for(int i=0; i<cant; i++){
+                    CobroPendienteDTO cobroPendiente = new CobroPendienteDTO();
+                    cobroPendiente.setMembresia(membresiaEnCuestion);
+                    cobroPendiente.setEstado(true);
+                    cobroPendiente.setAno(2020);
+                    cobroPendiente.setFechaVencimiento(getFechaF());
+                    cobroPendiente.setMonto(calcularMontoCobro(cant));
+                    cobroPendiente.setPeriodo(perioridad);
+
+                    Respuesta respuesta1=cobroPendienteService.crear(cobroPendiente);
+                    if(respuesta1.getEstado()){
+                        CobroPendienteEnCuestion=(CobroPendienteDTO) respuesta.getResultado("CobroPendiente");
+                    }
+                }     
+            }else{
+                Mensaje.showAndWait(Alert.AlertType.ERROR, "No se registro de una membresia", respuesta.getMensaje());
+            }
+        limpiarMembresia();
         }
     }
     public static Date getFechaF() {
@@ -298,8 +288,6 @@ public class MantenimientoCobroController implements Initializable {
         fechaVenceAux=fechaVence;  
     }
 
-    
-   
     @FXML
     private void btnSelActivoMembresia(ActionEvent event) {
         btnActivo.setSelected(true);
@@ -314,10 +302,6 @@ public class MantenimientoCobroController implements Initializable {
         estado=false;
     }
 
-   
-    
-    
-    //CLIENTE///////////////////////////////////////////////////////////////////////////////
     
      @FXML
     private void btnActGuardarCliente(ActionEvent event) {
@@ -347,6 +331,17 @@ public class MantenimientoCobroController implements Initializable {
         txtTelefono.setText("");
         btnActivo.setSelected(false);
         btnInactivo.setSelected(false);  
+    }
+    
+    public void limpiarMembresia(){
+        membresiaEnCuestion = new MembresiaDTO();
+        txtMonto.setText("");
+        txtDescripcion.setText("");
+        btnActivoCobro.setSelected(false);
+        btnInactivoCobro.setSelected(false); 
+        cargarPerioridad();
+        cargarMembresiasCbx();
+        cargarClientesCbx();
     }
     
     
@@ -440,4 +435,12 @@ public class MantenimientoCobroController implements Initializable {
         return contadorMontoPagos;
     }
    
+    
+    @FXML
+    private void actGuardar(ActionEvent event) {   
+    }
+
+    @FXML
+    private void cbxCliente(ActionEvent event) {
+    }
 }
