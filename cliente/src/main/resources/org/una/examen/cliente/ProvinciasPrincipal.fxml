@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="488.0" prefWidth="940.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="org.una.examen.cliente.controller.ProvinciasPrincipalController">
+   <children>
+      <AnchorPane prefHeight="495.0" prefWidth="233.0" style="-fx-background-color: #6DC36D;">
+         <children>
+            <JFXButton fx:id="btnInicio" layoutX="59.0" onAction="#actInicio" prefHeight="65.0" prefWidth="174.0" ripplerFill="WHITE" text="Inicio">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="btnProvincias" layoutX="59.0" layoutY="65.0" onAction="#actProvincias" prefHeight="65.0" prefWidth="174.0" ripplerFill="WHITE" text="Provincias">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="btnCantones" layoutX="59.0" layoutY="130.0" onAction="#actCantones" prefHeight="65.0" prefWidth="174.0" ripplerFill="WHITE" text="Cantones">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="btnDistritos" layoutX="59.0" layoutY="195.0" onAction="#actDistritos" prefHeight="65.0" prefWidth="174.0" ripplerFill="WHITE" text="Distritos">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="btnUnidades" layoutX="59.0" layoutY="260.0" onAction="#actUnidades" prefHeight="65.0" prefWidth="174.0" ripplerFill="WHITE" text="Unidades">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="apContenedor" layoutX="233.0" prefHeight="495.0" prefWidth="707.0" style="-fx-background-color: #ECECEC;" />
+   </children>
+</AnchorPane>
