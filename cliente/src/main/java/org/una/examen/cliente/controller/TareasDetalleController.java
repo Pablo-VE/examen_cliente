@@ -251,7 +251,7 @@ public class TareasDetalleController implements Initializable {
             return false;
         }
         if(dpFechaFinalizacion.getValue().isBefore(dpFechaInicio.getValue())){
-            Mensaje.showAndWait(Alert.AlertType.WARNING, titulo, "La fecha de finalización sucede antes que la fecha de finalización");
+            Mensaje.showAndWait(Alert.AlertType.WARNING, titulo, "La fecha de finalización sucede antes que la fecha de inicio");
             return false;
         }
         return true;
