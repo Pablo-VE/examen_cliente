@@ -415,7 +415,7 @@ public class MantenimientoCobroController implements Initializable {
         if(perioridad == 5){
             while (bandera) {
                 if(calActual.before(cal)){
-                    calActual.add(Calendar.MONTH, 6);
+                    calActual.add(Calendar.MONTH, 4);
                     contadorMontoPagos++;
                 }else{
                     bandera=false;
@@ -425,7 +425,67 @@ public class MantenimientoCobroController implements Initializable {
         if(perioridad == 6){
             while (bandera) {
                 if(calActual.before(cal)){
+                    calActual.add(Calendar.MONTH, 4);
+                    contadorMontoPagos++;
+                }else{
+                    bandera=false;
+                }
+            }
+        }
+        if(perioridad == 7){
+            while (bandera) {
+                if(calActual.before(cal)){
+                    calActual.add(Calendar.MONTH, 4);
+                    contadorMontoPagos++;
+                }else{
+                    bandera=false;
+                }
+            }
+        }
+        if(perioridad == 8){
+            while (bandera) {
+                if(calActual.before(cal)){
+                    calActual.add(Calendar.MONTH, 6);
+                    contadorMontoPagos++;
+                }else{
+                    bandera=false;
+                }
+            }
+        }
+        if(perioridad == 9){
+            while (bandera) {
+                if(calActual.before(cal)){
                     calActual.add(Calendar.YEAR, 1);
+                    contadorMontoPagos++;
+                }else{
+                    bandera=false;
+                }
+            }
+        }
+        if(perioridad == 10){
+            while (bandera) {
+                if(calActual.before(cal)){
+                    calActual.add(Calendar.MONTH, 4);
+                    contadorMontoPagos++;
+                }else{
+                    bandera=false;
+                }
+            }
+        }
+        if(perioridad == 11){
+            while (bandera) {
+                if(calActual.before(cal)){
+                    calActual.add(Calendar.MONTH, 4);
+                    contadorMontoPagos++;
+                }else{
+                    bandera=false;
+                }
+            }
+        }
+        if(perioridad == 12){
+            while (bandera) {
+                if(calActual.before(cal)){
+                    calActual.add(Calendar.MONTH, 4);
                     contadorMontoPagos++;
                 }else{
                     bandera=false;
